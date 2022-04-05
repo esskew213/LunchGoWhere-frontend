@@ -5,11 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { amber, blueGrey } from '@mui/material/colors';
+import { amber, pink } from '@mui/material/colors';
 
 const theme = createTheme({
 	palette: {
-		primary: blueGrey,
+		primary: pink,
 		secondary: amber
 	},
 	typography: {
