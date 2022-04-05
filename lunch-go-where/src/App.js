@@ -1,6 +1,14 @@
-import Homepage from './pages/Homepage';
+import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+
 function App() {
-	return <Homepage />;
+	return (
+		<Routes>
+			<Route path="/" element={<Landing />} />
+		</Routes>
+	);
 }
 
 export default App;
