@@ -1,11 +1,11 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function ComboBox() {
+export default function ComboBox({ handleFieldChange }) {
 	return (
 		<Autocomplete
+			onChange={handleFieldChange}
 			disablePortal
-			id="combo-box-demo"
 			options={locations}
 			sx={{ width: 300 }}
 			renderInput={(params) => <TextField {...params} label="Locations" />}

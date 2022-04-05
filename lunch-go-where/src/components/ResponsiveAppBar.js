@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = [ 'Home', 'Add Reviews', 'My Favourites' ];
+const pages = [ 'Home', 'Add A Stall', 'My Favourites' ];
 const settings = [ 'Profile', 'Logout' ];
 const logo = 'LUNCHGOWHERE';
 const ResponsiveAppBar = () => {
