@@ -84,7 +84,8 @@ const Landing = () => {
         </Box>
       </form>
       <div>
-        <Button onClick={handleOpen}>Register</Button>
+        <Typography>Don't have an account?</Typography>
+        <Button onClick={handleOpen}>Sign up now</Button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -95,23 +96,34 @@ const Landing = () => {
             <Typography id="modal-modal-title" variant="h4" component="h2">
               Sign Up
             </Typography>
-            <TextField
-              id="standard-basic"
-              label="Username"
-              variant="standard"
-            />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Username"
+                variant="standard"
+                required
+              />
+            </FormControl>
             <br />
-            <TextField
-              id="standard-basic"
-              label="Password"
-              variant="standard"
-            />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Password"
+                type="password"
+                variant="standard"
+                required
+              />
+            </FormControl>
             <br />
-            <TextField
-              id="standard-basic"
-              label="Confirm Password"
-              variant="standard"
-            />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Confirm Password"
+                type="password"
+                variant="standard"
+                required
+              />
+            </FormControl>
             <br />
             <Button
               variant="contained"
