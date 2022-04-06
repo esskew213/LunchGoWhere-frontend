@@ -39,9 +39,10 @@ const Home = () => {
 					recStalls.map((stall) => {
 						return (
 							<React.Fragment>
-								<Typography>{stall.stallName}</Typography>
-								<Typography>{stall.cuisine}</Typography>
-								<Typography>{stall.location}</Typography>
+								<Typography>Stall name: {stall.stallName}</Typography>
+								<Typography>Cuisine: {stall.cuisine}</Typography>
+								<Typography>Location: {stall.location}</Typography>
+								<Typography>Submitted by: {stall.author.name}</Typography>
 							</React.Fragment>
 						);
 					})
