@@ -1,69 +1,134 @@
-import React, { useState } from 'react';
-import useSetInputState from '../hooks/useSetInputState';
-import { FormControl, Box, TextField, Button, MenuItem, InputLabel, Select } from '@mui/material';
-import AutocompleteLocation from './AutocompleteLocation';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import apis from '../utils/apiCalls';
+import React, { useState } from "react";
+import useSetInputState from "../hooks/useSetInputState";
+import {
+  FormControl,
+  Box,
+  TextField,
+  Button,
+  MenuItem,
+  InputLabel,
+  Select,
+  Input,
+} from "@mui/material";
+import AutocompleteLocation from "./AutocompleteLocation";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import apis from "../utils/apiCalls";
+import axios from "axios";
+
 const NewStallForm = () => {
-	//// Using the useSetInputState custom hook
-	const [ stallName, handleStallNameChange, resetStallName ] = useSetInputState('');
-	const [ cuisine, handleCuisineChange, resetCuisine ] = useSetInputState('');
-	//// Need to set a special handler for location to get value from autocomplete field
-	const [ location, setLocation ] = useState('');
-	const handleLocationChange = (evt, value) => {
-		setLocation(value);
-	};
-	const handleSubmit = (evt) => {
-		evt.preventDefault();
-		console.log(stallName, location, cuisine);
-		apis.postNewStall({ stallName, location, cuisine });
-		resetStallName();
-		resetCuisine();
-		setLocation('');
-	};
-	return (
-		<form onSubmit={handleSubmit}>
-			<Box sx={{ px: '2vw' }}>
-				<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
-					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Stall Name"
-							type="text"
-							value={stallName}
-							onChange={handleStallNameChange}
-							required
-						/>
-					</FormControl>
-					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
-						<AutocompleteLocation handleFieldChange={handleLocationChange} />
-					</FormControl>
-					<FormControl variant="standard" required sx={{ minWidth: '120px' }}>
-						<InputLabel id="cuisine">Cuisine</InputLabel>
-						<Select
-							labelId="cuisine"
-							id="cuisine"
-							label="Cuisine"
-							value={cuisine}
-							onChange={handleCuisineChange}
-						>
-							<MenuItem value={'Western'}>Western</MenuItem>
-							<MenuItem value={'Chinese'}>Chinese</MenuItem>
-							<MenuItem value={'Malay'}>Malay</MenuItem>
-							<MenuItem value={'Korean'}>Korean</MenuItem>
-							<MenuItem value={'Japanese'}>Japanese</MenuItem>
-							<MenuItem value={'Indian'}>Indian</MenuItem>
-							<MenuItem value={'Others'}>Others</MenuItem>
-						</Select>
-					</FormControl>
-				</Box>
-				<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
-					ADD NEW REVIEW
-				</Button>
-			</Box>
-		</form>
-	);
+  //// Using the useSetInputState custom hook
+  const [stallName, handleStallNameChange, resetStallName] =
+    useSetInputState("");
+  const [cuisine, handleCuisineChange, resetCuisine] = useSetInputState("");
+  //// Need to set a special handler for location to get value from autocomplete field
+  const [location, setLocation] = useState("");
+  const handleLocationChange = (evt, value) => {
+    setLocation(value);
+  };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    console.log(stallName, location, cuisine);
+    apis.postNewStall({ stallName, location, cuisine });
+    resetStallName();
+    resetCuisine();
+    setLocation("");
+  };
+
+  const [imageSelected, setImageSelected] = useState();
+
+  const uploadImage = (files) => {
+    // console.log(files[0]);
+    const formData = new FormData();
+    formData.append("file", imageSelected);
+    formData.append("upload", "uznhfuoe");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dgalezcxh/image/upload", formData)
+      .then((response) => console.log(response));
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <Box sx={{ px: "2vw" }}>
+        <Box
+          sx={{ display: "flex", flexDirection: "row", alignItems: "flex-end" }}
+        >
+          <FormControl variant="standard" required sx={{ mr: "2vw" }}>
+            <TextField
+              variant="standard"
+              size="small"
+              label="Stall Name"
+              type="text"
+              value={stallName}
+              onChange={handleStallNameChange}
+              required
+            />
+          </FormControl>
+          <FormControl variant="standard" required sx={{ mr: "2vw" }}>
+            <AutocompleteLocation handleFieldChange={handleLocationChange} />
+          </FormControl>
+          <FormControl variant="standard" required sx={{ minWidth: "120px" }}>
+            <InputLabel id="cuisine">Cuisine</InputLabel>
+            <Select
+              labelId="cuisine"
+              id="cuisine"
+              label="Cuisine"
+              value={cuisine}
+              onChange={handleCuisineChange}
+            >
+              <MenuItem value={"Western"}>Western</MenuItem>
+              <MenuItem value={"Chinese"}>Chinese</MenuItem>
+              <MenuItem value={"Malay"}>Malay</MenuItem>
+              <MenuItem value={"Korean"}>Korean</MenuItem>
+              <MenuItem value={"Japanese"}>Japanese</MenuItem>
+              <MenuItem value={"Indian"}>Indian</MenuItem>
+              <MenuItem value={"Others"}>Others</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <button id="upload_widget" class="cloudinary-button">
+            Upload files
+          </button>
+
+          <script
+            src="https://upload-widget.cloudinary.com/global/all.js"
+            type="text/javascript"
+          ></script>
+
+          <script
+            src="https://upload-widget.cloudinary.com/global/all.js"
+            type="text/javascript"
+          ></script> */}
+
+          {/* <FormControl variant="standard" required sx={{ minWidth: "120px" }}>
+            <Input
+              id="stallImg"
+              type="file"
+              onChange={(event) => {
+                setImageSelected(event.target.files);
+              }}
+            />
+          </FormControl> */}
+          {/* <Button
+            variant="contained"
+            type="submit"
+            sx={{ mt: "30px" }}
+            onClick={uploadImage}
+          >
+            Upload Stall Image
+          </Button> */}
+        </Box>
+        <Button
+          endIcon={<ArrowForwardIosIcon />}
+          variant="contained"
+          type="submit"
+          sx={{ mt: "30px" }}
+          onClick={uploadImage}
+        >
+          ADD NEW REVIEW
+        </Button>
+      </Box>
+    </form>
+  );
 };
 
 export default NewStallForm;
