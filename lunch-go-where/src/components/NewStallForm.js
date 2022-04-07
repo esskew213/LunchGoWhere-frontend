@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useSetInputState from "../hooks/useSetInputState";
 import {
   FormControl,
@@ -19,31 +20,40 @@ const NewStallForm = () => {
   //// Using the useSetInputState custom hook
   const [stallName, handleStallNameChange, resetStallName] =
     useSetInputState("");
+
   const [cuisine, handleCuisineChange, resetCuisine] = useSetInputState("");
+
+  const [image, handleImageChange] = useState("");
+
   //// Need to set a special handler for location to get value from autocomplete field
   const [location, setLocation] = useState("");
   const handleLocationChange = (evt, value) => {
     setLocation(value);
   };
+
+  let navigate = useNavigate();
+  let path = "../review";
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     console.log(stallName, location, cuisine);
     apis.postNewStall({ stallName, location, cuisine });
     resetStallName();
     resetCuisine();
-    setLocation("");
+    setLocation(0);
+    navigate(path);
   };
-
-  const [imageSelected, setImageSelected] = useState();
 
   const uploadImage = (files) => {
     // console.log(files[0]);
     const formData = new FormData();
-    formData.append("file", imageSelected);
-    formData.append("upload", "uznhfuoe");
+    formData.append("file", image[0]);
+    console.log(image[0]);
+    formData.append("upload_preset", "uznhfuoe");
+    console.log(formData);
 
     axios
-      .post("https://api.cloudinary.com/v1_1/dgalezcxh/image/upload", formData)
+      .post("https://api.cloudinary.com/v1_1/dgalezcxh/upload", formData)
       .then((response) => console.log(response));
   };
 
@@ -98,16 +108,15 @@ const NewStallForm = () => {
             src="https://upload-widget.cloudinary.com/global/all.js"
             type="text/javascript"
           ></script> */}
-
-          {/* <FormControl variant="standard" required sx={{ minWidth: "120px" }}>
+          <FormControl variant="standard" required sx={{ minWidth: "120px" }}>
             <Input
               id="stallImg"
               type="file"
               onChange={(event) => {
-                setImageSelected(event.target.files);
+                handleImageChange(event.target.files);
               }}
             />
-          </FormControl> */}
+          </FormControl>
           {/* <Button
             variant="contained"
             type="submit"
