@@ -16,4 +16,21 @@ const getRecommendedStalls = async () => {
 };
 const apiCalls = { postNewStall, getRecommendedStalls, login };
 
+const getUser = async () => {
+	try {
+		const response = await axios.get(baseURL);
+		console.log(response.status);
+		return response;
+	} catch (e) {
+		console.log(e);
+};
+	}
+const apiCalls = { postNewStall, getRecommendedStalls, login, getUser };
+const postSignUp = async (body) => {
+  const response = await axios.post(baseURL + "/signup", body);
+  return response.data;
+};
+const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login };
+
+=======
 export default apiCalls;
