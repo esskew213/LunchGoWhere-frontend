@@ -11,7 +11,8 @@ const getRecommendedStalls = async () => {
 };
 
 const postSignUp = async (body) => {
-  await axios.post(baseURL + "/signup", body);
+  const response = await axios.post(baseURL + "/signup", body);
+  return response.data;
 };
 const apiCalls = { postNewStall, getRecommendedStalls, postSignUp };
 

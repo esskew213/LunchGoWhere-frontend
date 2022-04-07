@@ -14,6 +14,7 @@ import {
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
 import apis from "../utils/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -33,6 +34,7 @@ const Landing = () => {
   const [name, setName] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -55,14 +57,19 @@ const Landing = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
   };
-  const handleSignUpClick = (evt) => {
+  const handleSignUpClick = async (evt) => {
     evt.preventDefault();
-    console.log(name);
-    apis.postSignUp({
+    const res = await apis.postSignUp({
       name: name,
       username: newUsername,
       password: newPassword,
     });
+    setName("");
+    setNewUsername("");
+    setNewPassword("");
+    if (res) {
+      navigate("/home");
+    }
   };
   return (
     <React.Fragment>
