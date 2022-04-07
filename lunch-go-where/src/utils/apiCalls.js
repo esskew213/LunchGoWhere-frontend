@@ -1,5 +1,5 @@
-import axios from 'axios';
-const baseURL = 'http://localhost:5001';
+import axios from "axios";
+const baseURL = "http://localhost:5001";
 
 const login = async (body) => {
 	const response = await axios.post(baseURL + '/login', body, { withCredentials: true });
@@ -7,13 +7,19 @@ const login = async (body) => {
 };
 
 const postNewStall = async (body) => {
-	await axios.post(baseURL + '/new', body);
+  await axios.post(baseURL + "/new", body);
 };
 
 const getRecommendedStalls = async () => {
-	const response = await axios.get(baseURL + '/home');
-	return response.data;
+  const response = await axios.get(baseURL + "/home");
+  return response.data;
 };
-const apiCalls = { postNewStall, getRecommendedStalls, login };
+
+const postSignUp = async (body) => {
+  const response = await axios.post(baseURL + "/signup", body);
+  return response.data;
+};
+const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login };
+
 
 export default apiCalls;
