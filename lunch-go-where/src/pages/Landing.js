@@ -57,20 +57,22 @@ const Landing = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     console.log("SUBMITTING", username, password);
-    apis.login({ username, password });
+    await apis.login({ username: username, password: password });
   };
   const handleSignUpClick = async (evt) => {
     evt.preventDefault();
-    const res = await apis.postSignUp({
-      name: name,
-      username: newUsername,
-      password: newPassword,
-    });
-    setName("");
-    setNewUsername("");
-    setNewPassword("");
-    if (res) {
+    try {
+      const res = await apis.postSignUp({
+        name: name,
+        username: newUsername,
+        password: newPassword,
+      });
+      setName("");
+      setNewUsername("");
+      setNewPassword("");
       navigate("/home");
+    } catch (err) {
+      console.log(err);
     }
   };
   return (
