@@ -14,23 +14,22 @@ const getRecommendedStalls = async () => {
 	const response = await axios.get(baseURL + '/home');
 	return response.data;
 };
-const apiCalls = { postNewStall, getRecommendedStalls, login };
 
 const getUser = async () => {
 	try {
-		const response = await axios.get(baseURL);
+		const response = await axios.get(baseURL, { withCredentials: true });
 		console.log(response.status);
 		return response;
 	} catch (e) {
 		console.log(e);
-};
 	}
-const apiCalls = { postNewStall, getRecommendedStalls, login, getUser };
-const postSignUp = async (body) => {
-  const response = await axios.post(baseURL + "/signup", body);
-  return response.data;
 };
-const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login };
 
-=======
+const postSignUp = async (body) => {
+	const response = await axios.post(baseURL + '/signup', body);
+	return response.data;
+};
+
+const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, getUser };
+
 export default apiCalls;
