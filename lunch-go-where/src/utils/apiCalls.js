@@ -2,7 +2,8 @@ import axios from 'axios';
 const baseURL = 'http://localhost:5001';
 
 const login = async (body) => {
-	await axios.post(baseURL + '/login', body);
+	const response = await axios.post(baseURL + '/login', body, { withCredentials: true });
+	console.log(response);
 };
 
 const postNewStall = async (body) => {
