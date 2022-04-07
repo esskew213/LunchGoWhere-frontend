@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
+import apis from "../utils/apiCalls";
 
 const style = {
   position: "absolute",
@@ -29,6 +30,9 @@ const style = {
 const Landing = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,8 +43,26 @@ const Landing = () => {
   const handlePasswordChange = (evt) => {
     setPassword(evt.target.value);
   };
+  const handleNewNameChange = (evt) => {
+    setName(evt.target.value);
+  };
+  const handleNewUsernameChange = (evt) => {
+    setNewUsername(evt.target.value);
+  };
+  const handleNewPasswordChange = (evt) => {
+    setNewPassword(evt.target.value);
+  };
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+  };
+  const handleSignUpClick = (evt) => {
+    evt.preventDefault();
+    console.log(name);
+    apis.postSignUp({
+      name: name,
+      username: newUsername,
+      password: newPassword,
+    });
   };
   return (
     <React.Fragment>
@@ -83,15 +105,15 @@ const Landing = () => {
           </Button>
         </Box>
       </form>
-      <div>
-        <Typography>Don't have an account?</Typography>
-        <Button onClick={handleOpen}>Sign up now</Button>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
+      <Typography>Don't have an account?</Typography>
+      <Button onClick={handleOpen}>Sign up now</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <form onSubmit={handleSignUpClick}>
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h4" component="h2">
               Sign Up
@@ -99,8 +121,22 @@ const Landing = () => {
             <FormControl variant="standard" required>
               <TextField
                 id="standard-basic"
-                label="Username"
+                label="Name"
                 variant="standard"
+                value={name}
+                onChange={handleNewNameChange}
+                required
+              />
+            </FormControl>
+            <br />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Username"
+                type="text"
+                variant="standard"
+                value={newUsername}
+                onChange={handleNewUsernameChange}
                 required
               />
             </FormControl>
@@ -111,16 +147,8 @@ const Landing = () => {
                 label="Password"
                 type="password"
                 variant="standard"
-                required
-              />
-            </FormControl>
-            <br />
-            <FormControl variant="standard" required>
-              <TextField
-                id="standard-basic"
-                label="Confirm Password"
-                type="password"
-                variant="standard"
+                value={newPassword}
+                onChange={handleNewPasswordChange}
                 required
               />
             </FormControl>
@@ -133,8 +161,8 @@ const Landing = () => {
               Register Me!
             </Button>
           </Box>
-        </Modal>
-      </div>
+        </form>
+      </Modal>
     </React.Fragment>
   );
 };
