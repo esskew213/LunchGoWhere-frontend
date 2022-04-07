@@ -56,6 +56,8 @@ const Landing = () => {
   };
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("SUBMITTING", username, password);
+    apis.login({ username, password });
   };
   const handleSignUpClick = async (evt) => {
     evt.preventDefault();
@@ -76,7 +78,7 @@ const Landing = () => {
       <Box>
         <Typography variant="h2">Lunch go where?</Typography>
       </Box>
-      <form action="/login" method="post">
+      <form onSubmit={handleSubmit}>
         <Box
           sx={{ display: "flex", flexDirection: "column", maxWidth: "200px" }}
         >
