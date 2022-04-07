@@ -56,7 +56,7 @@ const NewStallForm = () => {
   useEffect(() => {
     getLocation();
     console.log(lat, lng);
-  });
+  }, []);
 
   let navigate = useNavigate();
   let path = "../review";
