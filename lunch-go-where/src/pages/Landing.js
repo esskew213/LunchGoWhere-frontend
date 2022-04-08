@@ -35,6 +35,8 @@ const Landing = () => {
   const [name, setName] = useState("");
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [isValid, setIsValid] = useState(false);
+  const [showErrorLabel, setShowErrorLabel] = useState(false);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -53,7 +55,16 @@ const Landing = () => {
     setNewUsername(evt.target.value);
   };
   const handleNewPasswordChange = (evt) => {
-    setNewPassword(evt.target.value);
+    const testPassword = evt.target.value;
+    const condition = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const test = condition.test(testPassword);
+    if (test) {
+      setNewPassword(testPassword);
+      setIsValid(true);
+    } else {
+      console.log("Password Fail");
+    }
+    setNewPassword(testPassword);
   };
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -66,22 +77,29 @@ const Landing = () => {
       console.log(err);
     }
   };
+
   const handleSignUpClick = async (evt) => {
     evt.preventDefault();
-    try {
-      await apis.postSignUp({
-        name: name,
-        username: newUsername,
-        password: newPassword,
-      });
-      setName("");
-      setNewUsername("");
-      setNewPassword("");
-      navigate("/home");
-    } catch (err) {
-      console.log(err);
+    if (isValid !== true) {
+      console.log(showErrorLabel);
+      setShowErrorLabel(true);
+    } else {
+      try {
+        await apis.postSignUp({
+          name: name,
+          username: newUsername,
+          password: newPassword,
+        });
+        setName("");
+        setNewUsername("");
+        setNewPassword("");
+        navigate("/home");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
+
   return (
     <React.Fragment>
       <Box>
@@ -172,6 +190,15 @@ const Landing = () => {
                 required
               />
             </FormControl>
+            <br />
+            {showErrorLabel ? (
+              <label>
+                Password is not valid. Please include a letter and a number
+                within your password.
+              </label>
+            ) : (
+              ""
+            )}
             <br />
             <Button
               variant="contained"
