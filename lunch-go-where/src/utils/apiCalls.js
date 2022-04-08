@@ -8,12 +8,12 @@ const login = async (body) => {
 };
 
 const postNewStall = async (body) => {
-	await axios.post(baseURL + '/new', body);
+  await axios.post(baseURL + "/new", body);
 };
 
 const getRecommendedStalls = async () => {
-	const response = await axios.get(baseURL + '/home');
-	return response.data;
+  const response = await axios.get(baseURL + "/home");
+  return response.data;
 };
 
 const postSignUp = async (body) => {
