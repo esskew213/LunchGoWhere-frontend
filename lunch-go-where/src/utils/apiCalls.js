@@ -21,10 +21,14 @@ const postSignUp = async (body) => {
 };
 
 const checkAuthUser = async () => {
-	const response = await axios.get('http://localhost:5001', { withCredentials: true });
+	const response = await axios.get(baseURL, { withCredentials: true });
 	return response;
 };
 
-const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, checkAuthUser };
+const getOneStall = async (id) => {
+	const response = await axios.get(baseURL + '/food/' + id, { withCredentials: true });
+	return response;
+};
+const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, checkAuthUser, getOneStall };
 
 export default apiCalls;
