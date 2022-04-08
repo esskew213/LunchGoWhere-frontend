@@ -26,6 +26,7 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  textAlign: "center",
 };
 
 const Landing = () => {
@@ -57,12 +58,18 @@ const Landing = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     console.log("SUBMITTING", username, password);
-    await apis.login({ username: username, password: password });
+    try {
+      await apis.login({ username: username, password: password });
+      setPassword("");
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
   };
   const handleSignUpClick = async (evt) => {
     evt.preventDefault();
     try {
-      const res = await apis.postSignUp({
+      await apis.postSignUp({
         name: name,
         username: newUsername,
         password: newPassword,
@@ -116,8 +123,10 @@ const Landing = () => {
           </Button>
         </Box>
       </form>
-      <Typography>Don't have an account?</Typography>
-      <Button onClick={handleOpen}>Sign up now</Button>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Typography>Don't have an account?</Typography>
+        <Button onClick={handleOpen}>Sign up now</Button>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
