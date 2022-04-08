@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSetInputState from '../hooks/useSetInputState';
 import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel } from '@mui/material';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
@@ -8,15 +8,29 @@ import Favorite from '@mui/icons-material/Favorite';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import apis from '../utils/apiCalls';
 const ReviewForm = ({ stallID }) => {
-	const [ price, handlePriceChange, resetPrice ] = useSetInputState(0);
-	const [ waitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
-	const [ wouldEatAgain, handleWouldEatChange, resetWouldEat ] = useSetInputState(false);
-	const [ wouldQueueAgain, handleWouldQueueChange, resetWouldQueue ] = useSetInputState(false);
+	const [ price, setPrice, handlePriceChange, resetPrice ] = useSetInputState(0);
+	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
+	const [ wouldEatAgain, setWouldEat, handleWouldEatChange, resetWouldEat ] = useSetInputState(false);
+	const [ wouldQueueAgain, setWouldQueue, handleWouldQueueChange, resetWouldQueue ] = useSetInputState(false);
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		console.log(price, waitTime, wouldEatAgain, wouldQueueAgain, stallID);
 		apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
 	};
+	useEffect(() => {
+		apis
+			.getExistingReview(stallID)
+			.then((res) => {
+				const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data;
+				setPrice(price);
+				setWaitTime(waitTime);
+				setWouldEat(wouldEatAgain);
+				setWouldQueue(wouldQueueAgain);
+			})
+			.catch((err) => {
+				console.log(err.response);
+			});
+	}, []);
 	return (
 		<form onSubmit={handleSubmit}>
 			<Box sx={{ px: '2vw' }}>
@@ -52,6 +66,7 @@ const ReviewForm = ({ stallID }) => {
 									checkedIcon={<FastfoodIcon />}
 									value={true}
 									onChange={handleWouldEatChange}
+									defaultChecked={wouldEatAgain ? true : false}
 								/>
 							}
 							label="Would eat again"
@@ -67,6 +82,7 @@ const ReviewForm = ({ stallID }) => {
 									checkedIcon={<Favorite />}
 									value={true}
 									onChange={handleWouldQueueChange}
+									defaultChecked={wouldQueueAgain ? true : false}
 								/>
 							}
 							label="Would queue again"

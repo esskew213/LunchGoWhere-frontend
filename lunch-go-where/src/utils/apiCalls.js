@@ -6,6 +6,11 @@ const login = async (body) => {
 	console.log(response);
 };
 
+const getExistingReview = async (id) => {
+	const response = await axios.get(baseURL + '/review/' + id, { withCredentials: true });
+	return response;
+};
+
 const postNewStall = async (body) => {
 	await axios.post(baseURL + '/new', body, { withCredentials: true });
 };
@@ -35,6 +40,15 @@ const getOneStall = async (id) => {
 	const response = await axios.get(baseURL + '/food/' + id, { withCredentials: true });
 	return response;
 };
-const apiCalls = { postNewStall, postNewReview, getRecommendedStalls, postSignUp, login, checkAuthUser, getOneStall };
+const apiCalls = {
+	postNewStall,
+	postNewReview,
+	getRecommendedStalls,
+	postSignUp,
+	login,
+	checkAuthUser,
+	getOneStall,
+	getExistingReview
+};
 
 export default apiCalls;
