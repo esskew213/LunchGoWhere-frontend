@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const baseURL = 'http://localhost:5001';
 
@@ -15,21 +16,22 @@ const getRecommendedStalls = async () => {
 	return response.data;
 };
 
-const getUser = async () => {
-	try {
-		const response = await axios.get(baseURL, { withCredentials: true });
-		console.log(response.status);
-		return response;
-	} catch (e) {
-		console.log(e);
-	}
-};
-
 const postSignUp = async (body) => {
 	const response = await axios.post(baseURL + '/signup', body);
 	return response.data;
 };
 
-const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, getUser };
+const checkAuthUser = async () => {
+	await axios
+		.get('http://localhost:5001', { withCredentials: true })
+		.then((res) => {
+			return res;
+		})
+		.catch((err) => {
+			console.log(err.response);
+		});
+};
+
+const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, checkAuthUser };
 
 export default apiCalls;
