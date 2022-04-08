@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const baseURL = 'http://localhost:5001';
 
@@ -8,12 +7,12 @@ const login = async (body) => {
 };
 
 const postNewStall = async (body) => {
-  await axios.post(baseURL + "/new", body);
+	await axios.post(baseURL + '/new', body);
 };
 
 const getRecommendedStalls = async () => {
-  const response = await axios.get(baseURL + "/home");
-  return response.data;
+	const response = await axios.get(baseURL + '/home');
+	return response.data;
 };
 
 const postSignUp = async (body) => {
@@ -22,14 +21,8 @@ const postSignUp = async (body) => {
 };
 
 const checkAuthUser = async () => {
-	await axios
-		.get('http://localhost:5001', { withCredentials: true })
-		.then((res) => {
-			return res;
-		})
-		.catch((err) => {
-			console.log(err.response);
-		});
+	const response = await axios.get('http://localhost:5001', { withCredentials: true });
+	return response;
 };
 
 const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, checkAuthUser };

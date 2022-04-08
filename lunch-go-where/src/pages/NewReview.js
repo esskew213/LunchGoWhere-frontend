@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 const NewReview = () => {
 	const navigate = useNavigate();
 	useEffect(() => {
-		apis.checkAuthUser().catch((err) => navigate('/'));
+		apis.checkAuthUser().then((res) => console.log(res)).catch((err) => {
+			console.log(err.response);
+			navigate('/');
+		});
 	}, []);
 	return (
 		<React.Fragment>
