@@ -56,7 +56,7 @@ const Result = () => {
 							<ListItemIcon>
 								<LocationOnIcon />
 							</ListItemIcon>
-							<ListItemText primary={stall.location.centerName} />
+							<ListItemText primary={`${stall.location.centerName}`} />
 						</ListItem>
 						<ListItem>
 							<ListItemIcon>
@@ -68,20 +68,29 @@ const Result = () => {
 							<ListItemIcon>
 								<AccessTimeIcon />
 							</ListItemIcon>
-							<ListItemText primary="5 min" />
+							<ListItemText
+								primary={`${stall.calcWait} min` || 'no reviews yet'}
+								secondary="average wait time"
+							/>
 						</ListItem>
 						<ListItem>
 							<ListItemIcon>
 								<FavoriteIcon />
 							</ListItemIcon>
-							<ListItemText primary="20%" />
+							<ListItemText
+								primary={`${stall.calcWouldEat}%` || 'no reviews yet'}
+								secondary="would eat again"
+							/>
 						</ListItem>
 
 						<ListItem>
 							<ListItemIcon>
 								<PeopleIcon />
 							</ListItemIcon>
-							<ListItemText primary="10%" />
+							<ListItemText
+								primary={`${stall.calcWouldQueue}%` || 'no reviews yet'}
+								secondary="would queue again"
+							/>
 						</ListItem>
 					</List>
 				</Box>
