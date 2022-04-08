@@ -7,7 +7,11 @@ const login = async (body) => {
 };
 
 const postNewStall = async (body) => {
-	await axios.post(baseURL + '/new', body);
+	await axios.post(baseURL + '/new', body, { withCredentials: true });
+};
+
+const postNewReview = async (body) => {
+	await axios.post(baseURL + '/review', body, { withCredentials: true });
 };
 
 const getRecommendedStalls = async () => {
@@ -16,7 +20,8 @@ const getRecommendedStalls = async () => {
 };
 
 const postSignUp = async (body) => {
-	const response = await axios.post(baseURL + '/signup', body);
+	const response = await axios.post(baseURL + '/signup', body, { withCredentials: true });
+	console.log('POSTED SIGNUP', response);
 	return response.data;
 };
 
@@ -26,9 +31,10 @@ const checkAuthUser = async () => {
 };
 
 const getOneStall = async (id) => {
+	console.log(id);
 	const response = await axios.get(baseURL + '/food/' + id, { withCredentials: true });
 	return response;
 };
-const apiCalls = { postNewStall, getRecommendedStalls, postSignUp, login, checkAuthUser, getOneStall };
+const apiCalls = { postNewStall, postNewReview, getRecommendedStalls, postSignUp, login, checkAuthUser, getOneStall };
 
 export default apiCalls;

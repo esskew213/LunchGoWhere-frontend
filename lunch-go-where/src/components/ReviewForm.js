@@ -6,14 +6,16 @@ import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-const ReviewForm = (apiEndpoint) => {
+import apis from '../utils/apiCalls';
+const ReviewForm = ({ stallID }) => {
 	const [ price, handlePriceChange, resetPrice ] = useSetInputState(0);
 	const [ waitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
-	const [ wouldEat, handleWouldEatChange, resetWouldEat ] = useSetInputState(false);
-	const [ wouldQueue, handleWouldQueueChange, resetWouldQueue ] = useSetInputState(false);
+	const [ wouldEatAgain, handleWouldEatChange, resetWouldEat ] = useSetInputState(false);
+	const [ wouldQueueAgain, handleWouldQueueChange, resetWouldQueue ] = useSetInputState(false);
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
-		console.log(price, waitTime, wouldEat, wouldQueue);
+		console.log(price, waitTime, wouldEatAgain, wouldQueueAgain, stallID);
+		apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
 	};
 	return (
 		<form onSubmit={handleSubmit}>
