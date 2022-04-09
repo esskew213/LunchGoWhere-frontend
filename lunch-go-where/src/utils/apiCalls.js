@@ -40,4 +40,8 @@ const apiCalls = {
   checkAuthUser,
 };
 
+const postCloudinary = async (body) => {
+  await axios.post(baseURL + "/cloudinary", body);
+};
+
 export default apiCalls;

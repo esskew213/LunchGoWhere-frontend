@@ -56,7 +56,7 @@ const NewStallForm = () => {
   useEffect(() => {
     getLocation();
     console.log(lat, lng);
-  }, []);
+  });
 
   let navigate = useNavigate();
   let path = "../review";
@@ -82,6 +82,7 @@ const NewStallForm = () => {
     axios
       .post("https://api.cloudinary.com/v1_1/dgalezcxh/upload", formData)
       .then((response) => console.log(response));
+    // .post("./cloudinary");
   };
 
   return (
