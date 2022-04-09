@@ -17,15 +17,16 @@ import apis from '../utils/apiCalls';
 import { useNavigate } from 'react-router-dom';
 
 const style = {
-	position: 'absolute',
-	top: '50%',
-	left: '50%',
-	transform: 'translate(-50%, -50%)',
-	width: 400,
-	bgcolor: 'background.paper',
-	border: '2px solid #000',
-	boxShadow: 24,
-	p: 4
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  textAlign: "center",
 };
 
 const Landing = () => {
@@ -39,137 +40,151 @@ const Landing = () => {
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const handleUsernameChange = (evt) => {
-		setUsername(evt.target.value);
-	};
-	const handlePasswordChange = (evt) => {
-		setPassword(evt.target.value);
-	};
-	const handleNewNameChange = (evt) => {
-		setName(evt.target.value);
-	};
-	const handleNewUsernameChange = (evt) => {
-		setNewUsername(evt.target.value);
-	};
-	const handleNewPasswordChange = (evt) => {
-		setNewPassword(evt.target.value);
-	};
-	const handleSubmit = async (evt) => {
-		evt.preventDefault();
-		console.log('SUBMITTING', username, password);
-		await apis.login({ username: username, password: password });
-	};
-	const handleSignUpClick = async (evt) => {
-		evt.preventDefault();
-		try {
-			await apis.postSignUp({
-				name: name,
-				username: newUsername,
-				password: newPassword
-			});
-			setName('');
-			setNewUsername('');
-			setNewPassword('');
-			navigate('/home');
-		} catch (err) {
-			console.log(err);
-		}
-	};
-	return (
-		<React.Fragment>
-			<Box>
-				<Typography variant="h2">Lunch go where?</Typography>
-			</Box>
-			<form onSubmit={handleSubmit}>
-				<Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '200px' }}>
-					<FormControl variant="standard" required>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Username"
-							type="text"
-							value={username}
-							onChange={handleUsernameChange}
-							required
-						/>
-					</FormControl>
-					<FormControl variant="standard" required>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Password"
-							type="password"
-							value={password}
-							onChange={handlePasswordChange}
-							required
-						/>
-					</FormControl>
-					<Button
-						endIcon={<ArrowForwardIosIcon />}
-						variant="contained"
-						type="submit"
-						sx={{ width: '120px', mt: '30px' }}
-					>
-						LOGIN
-					</Button>
-				</Box>
-			</form>
-			<Typography>Don't have an account?</Typography>
-			<Button onClick={handleOpen}>Sign up now</Button>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
-			>
-				<form onSubmit={handleSignUpClick}>
-					<Box sx={style}>
-						<Typography id="modal-modal-title" variant="h4" component="h2">
-							Sign Up
-						</Typography>
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Name"
-								variant="standard"
-								value={name}
-								onChange={handleNewNameChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Username"
-								type="text"
-								variant="standard"
-								value={newUsername}
-								onChange={handleNewUsernameChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Password"
-								type="password"
-								variant="standard"
-								value={newPassword}
-								onChange={handleNewPasswordChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						<Button variant="contained" type="submit" sx={{ width: '120px', mt: '30px' }}>
-							Register Me!
-						</Button>
-					</Box>
-				</form>
-			</Modal>
-		</React.Fragment>
-	);
+  const handleUsernameChange = (evt) => {
+    setUsername(evt.target.value);
+  };
+  const handlePasswordChange = (evt) => {
+    setPassword(evt.target.value);
+  };
+  const handleNewNameChange = (evt) => {
+    setName(evt.target.value);
+  };
+  const handleNewUsernameChange = (evt) => {
+    setNewUsername(evt.target.value);
+  };
+  const handleNewPasswordChange = (evt) => {
+    setNewPassword(evt.target.value);
+  };
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    console.log("SUBMITTING", username, password);
+    try {
+      await apis.login({ username: username, password: password });
+      setPassword("");
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleSignUpClick = async (evt) => {
+    evt.preventDefault();
+    try {
+      await apis.postSignUp({
+        name: name,
+        username: newUsername,
+        password: newPassword,
+      });
+      setName("");
+      setNewUsername("");
+      setNewPassword("");
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  return (
+    <React.Fragment>
+      <Box>
+        <Typography variant="h2">Lunch go where?</Typography>
+      </Box>
+      <form onSubmit={handleSubmit}>
+        <Box
+          sx={{ display: "flex", flexDirection: "column", maxWidth: "200px" }}
+        >
+          <FormControl variant="standard" required>
+            <TextField
+              variant="standard"
+              size="small"
+              label="Username"
+              type="text"
+              value={username}
+              onChange={handleUsernameChange}
+              required
+            />
+          </FormControl>
+          <FormControl variant="standard" required>
+            <TextField
+              variant="standard"
+              size="small"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </FormControl>
+          <Button
+            endIcon={<ArrowForwardIosIcon />}
+            variant="contained"
+            type="submit"
+            sx={{ width: "120px", mt: "30px" }}
+          >
+            LOGIN
+          </Button>
+        </Box>
+      </form>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <Typography>Don't have an account?</Typography>
+        <Button onClick={handleOpen}>Sign up now</Button>
+      </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <form onSubmit={handleSignUpClick}>
+          <Box sx={style}>
+            <Typography id="modal-modal-title" variant="h4" component="h2">
+              Sign Up
+            </Typography>
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Name"
+                variant="standard"
+                value={name}
+                onChange={handleNewNameChange}
+                required
+              />
+            </FormControl>
+            <br />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Username"
+                type="text"
+                variant="standard"
+                value={newUsername}
+                onChange={handleNewUsernameChange}
+                required
+              />
+            </FormControl>
+            <br />
+            <FormControl variant="standard" required>
+              <TextField
+                id="standard-basic"
+                label="Password"
+                type="password"
+                variant="standard"
+                value={newPassword}
+                onChange={handleNewPasswordChange}
+                required
+              />
+            </FormControl>
+            <br />
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ width: "120px", mt: "30px" }}
+            >
+              Register Me!
+            </Button>
+          </Box>
+        </form>
+      </Modal>
+    </React.Fragment>
+  );
 };
 
 export default Landing;
