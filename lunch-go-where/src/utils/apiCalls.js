@@ -38,6 +38,7 @@ const apiCalls = {
   postSignUp,
   login,
   checkAuthUser,
+  postCloudinary,
 };
 
 const postCloudinary = async (body) => {

@@ -78,11 +78,11 @@ const NewStallForm = () => {
     console.log(image[0]);
     formData.append("upload_preset", "uznhfuoe");
     console.log(formData);
+    apis.postCloudinary({ image });
 
     axios
       .post("https://api.cloudinary.com/v1_1/dgalezcxh/upload", formData)
       .then((response) => console.log(response));
-    // .post("./cloudinary");
   };
 
   return (
