@@ -15,6 +15,7 @@ import AutocompleteLocation from "./AutocompleteLocation";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import apis from "../utils/apiCalls";
 import axios from "axios";
+// import cloudinaryPost from ('../utils/apiCalls')
 
 const NewStallForm = () => {
   //// Using the useSetInputState custom hook
@@ -78,7 +79,7 @@ const NewStallForm = () => {
     console.log(image[0]);
     formData.append("upload_preset", "uznhfuoe");
     console.log(formData);
-    apis.postCloudinary({ image });
+    // cloudinaryPost.postCloudinary({ image });
 
     axios
       .post("https://api.cloudinary.com/v1_1/dgalezcxh/upload", formData)

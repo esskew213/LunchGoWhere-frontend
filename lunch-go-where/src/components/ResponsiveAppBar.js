@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 
-const pages = ["Home", "Add A Stall", "My Favourites"];
+const pages = ["Home", "Add A Stall", "My Favourites", "Add A Review"];
 const settings = ["Profile", "Logout"];
 const logo = "LUNCHGOWHERE";
 const ResponsiveAppBar = () => {

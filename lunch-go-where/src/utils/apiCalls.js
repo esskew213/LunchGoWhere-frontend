@@ -38,6 +38,10 @@ const apiCalls = {
   postSignUp,
   login,
   checkAuthUser,
+  // postCloudinary,
+};
+
+const cloudinaryPost = {
   postCloudinary,
 };
 
