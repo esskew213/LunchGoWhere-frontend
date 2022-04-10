@@ -24,6 +24,10 @@ const postNewReview = async (body) => {
 	await axios.post(baseURL + '/review', body, { withCredentials: true });
 };
 
+const updateReview = async (body) => {
+	await axios.patch(baseURL + '/review', body, { withCredentials: true });
+};
+
 const getRecommendedStalls = async () => {
 	const response = await axios.get(baseURL + '/home');
 	return response.data;
@@ -57,7 +61,8 @@ const apiCalls = {
 	login,
 	checkAuthUser,
 	getOneStall,
-	getExistingReview
+	getExistingReview,
+	updateReview
 };
 
 export default apiCalls;

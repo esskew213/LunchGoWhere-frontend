@@ -7,8 +7,9 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import apis from '../utils/apiCalls';
-const ReviewForm = ({ stallID }) => {
-	const [ hasReviewed, setHasReviewed ] = useState(false);
+
+const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
+	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
 	const [ price, setPrice, handlePriceChange, resetPrice ] = useSetInputState(0);
 	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
 	const [ wouldEatAgain, setWouldEat ] = useSetInputState(false);
@@ -24,32 +25,41 @@ const ReviewForm = ({ stallID }) => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		console.log(price, waitTime, wouldEatAgain, wouldQueueAgain, stallID);
-		apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		if (hasReviewedBefore) {
+			apis.updateReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		} else {
+			apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		}
 		resetPrice();
 		resetWaitTime();
 		setWouldEat(false);
 		setWouldQueue(false);
+		setReviewSubmitted(true);
 	};
-	useEffect(() => {
-		apis
-			.getExistingReview(stallID)
-			.then((res) => {
-				if (res.data.review !== null) {
-					console.log('Previous review detected.', res.data);
-					const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data.review;
-					setPrice(price);
-					setWaitTime(waitTime);
-					setWouldEat(wouldEatAgain);
-					setWouldQueue(wouldQueueAgain);
-					setHasReviewed(true);
-				} else {
-					console.log('No previous review detected.');
-				}
-			})
-			.catch((err) => {
-				console.log(err.response);
-			});
-	}, []);
+	useEffect(
+		() => {
+			apis
+				.getExistingReview(stallID)
+				.then((res) => {
+					console.log(res);
+					if (res.data.review !== null) {
+						console.log('Previous review detected.', res.data);
+						const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data.review;
+						setPrice(price);
+						setWaitTime(waitTime);
+						setWouldEat(wouldEatAgain);
+						setWouldQueue(wouldQueueAgain);
+						setHasReviewedBefore(true);
+					} else {
+						console.log('No previous review detected.');
+					}
+				})
+				.catch((err) => {
+					console.log(err.response);
+				});
+		},
+		[ reviewSubmitted ]
+	);
 	return (
 		<form onSubmit={handleSubmit}>
 			<Box sx={{ px: '2vw', width: '20vw' }}>
