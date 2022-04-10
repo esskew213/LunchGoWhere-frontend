@@ -4,6 +4,7 @@ import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import AutocompleteLocation from "../components/AutocompleteLocation";
 import Slider from "../components/Slider";
 import apis from "../utils/apiCalls";
+import IndividualCard from "../components/IndividualCard";
 
 const Home = () => {
   const [location, setLocation] = useState("");
@@ -46,14 +47,19 @@ const Home = () => {
           </Button>
         </form>
       </Box>
-      <Box>
+      <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
         {recStalls
           ? recStalls.map((stall) => {
+              console.log(stall.stallName);
               return (
                 <React.Fragment>
-                  <Typography>Stall name: {stall.stallName}</Typography>
-                  <Typography>Cuisine: {stall.cuisine}</Typography>
-                  <Typography>Location: {stall.location}</Typography>
+                  <IndividualCard
+                    // img={stall.img}
+                    id={stall._id}
+                    nameOfStall={stall.stallName}
+                    cuisine={stall.cuisine}
+                    location={stall.location}
+                  />
                   {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
                 </React.Fragment>
               );
