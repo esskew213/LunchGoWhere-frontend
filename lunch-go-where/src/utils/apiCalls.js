@@ -38,7 +38,7 @@ const postSignUp = async (body) => {
 };
 
 const checkAuthUser = async () => {
-	const response = await axios.get('http://localhost:5001', {
+	const response = await axios.get(baseURL, {
 		withCredentials: true
 	});
 	return response;

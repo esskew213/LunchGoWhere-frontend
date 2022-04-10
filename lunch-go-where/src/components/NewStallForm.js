@@ -8,9 +8,9 @@ import apis from '../utils/apiCalls';
 
 const NewStallForm = () => {
 	//// Using the useSetInputState custom hook
-	const [ stallName, handleStallNameChange, resetStallName ] = useSetInputState('');
+	const [ stallName, setStallName, handleStallNameChange, resetStallName ] = useSetInputState('');
 
-	const [ cuisine, handleCuisineChange, resetCuisine ] = useSetInputState('');
+	const [ cuisine, setCuisine, handleCuisineChange, resetCuisine ] = useSetInputState('');
 
 	const [ image, setImage ] = useState('');
 
