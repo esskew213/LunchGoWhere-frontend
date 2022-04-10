@@ -9,7 +9,7 @@ const useSetInputState = (initialVal = '') => {
 		setState(initialVal);
 	};
 
-	return [ state, handleChange, reset ];
+	return [ state, setState, handleChange, reset ];
 };
 
 export default useSetInputState;

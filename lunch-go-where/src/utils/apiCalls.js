@@ -8,11 +8,25 @@ const login = async (body) => {
 	console.log(response);
 };
 
+const getExistingReview = async (id) => {
+	const response = await axios.get(baseURL + '/review/' + id, { withCredentials: true });
+	return response;
+};
+
 const postNewStall = async (body) => {
 	const response = await axios.post(baseURL + '/new', body, {
 		withCredentials: true
 	});
 	console.log('POSTED NEW STALL', response);
+	return response;
+};
+
+const postNewReview = async (body) => {
+	await axios.post(baseURL + '/review', body, { withCredentials: true });
+};
+
+const updateReview = async (body) => {
+	await axios.patch(baseURL + '/review', body, { withCredentials: true });
 };
 
 const getRecommendedStalls = async () => {
@@ -29,18 +43,27 @@ const postSignUp = async (body) => {
 };
 
 const checkAuthUser = async () => {
-	const response = await axios.get('http://localhost:5001', {
+	const response = await axios.get(baseURL, {
 		withCredentials: true
 	});
 	return response;
 };
 
+const getOneStall = async (id) => {
+	console.log(id);
+	const response = await axios.get(baseURL + '/food/' + id, { withCredentials: true });
+	return response;
+};
 const apiCalls = {
 	postNewStall,
+	postNewReview,
 	getRecommendedStalls,
 	postSignUp,
 	login,
-	checkAuthUser
+	checkAuthUser,
+	getOneStall,
+	getExistingReview,
+	updateReview
 };
 
 export default apiCalls;

@@ -1,24 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useSetInputState from '../hooks/useSetInputState';
-import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel } from '@mui/material';
+import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel, FormGroup, Switch } from '@mui/material';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-const ReviewForm = (apiEndpoint) => {
-	const [ price, handlePriceChange, resetPrice ] = useSetInputState(0);
-	const [ waitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
-	const [ wouldEat, handleWouldEatChange, resetWouldEat ] = useSetInputState(false);
-	const [ wouldQueue, handleWouldQueueChange, resetWouldQueue ] = useSetInputState(false);
+import apis from '../utils/apiCalls';
+
+const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
+	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
+	const [ price, setPrice, handlePriceChange, resetPrice ] = useSetInputState(0);
+	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
+	const [ wouldEatAgain, setWouldEat ] = useSetInputState(false);
+	const [ wouldQueueAgain, setWouldQueue ] = useSetInputState(false);
+	const handleWouldEatChange = (evt) => {
+		setWouldEat((prevState) => !prevState);
+		console.log(wouldEatAgain);
+	};
+	const handleWouldQueueChange = (evt) => {
+		setWouldQueue((prevState) => !prevState);
+		console.log(wouldQueueAgain);
+	};
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
-		console.log(price, waitTime, wouldEat, wouldQueue);
+		console.log(price, waitTime, wouldEatAgain, wouldQueueAgain, stallID);
+		if (hasReviewedBefore) {
+			apis.updateReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		} else {
+			apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		}
+		resetPrice();
+		resetWaitTime();
+		setWouldEat(false);
+		setWouldQueue(false);
+		setReviewSubmitted(true);
 	};
+	useEffect(
+		() => {
+			apis
+				.getExistingReview(stallID)
+				.then((res) => {
+					console.log(res);
+					if (res.data.review !== null) {
+						console.log('Previous review detected.', res.data);
+						const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data.review;
+						setPrice(price);
+						setWaitTime(waitTime);
+						setWouldEat(wouldEatAgain);
+						setWouldQueue(wouldQueueAgain);
+						setHasReviewedBefore(true);
+					} else {
+						console.log('No previous review detected.');
+					}
+				})
+				.catch((err) => {
+					console.log(err.response);
+				});
+		},
+		[ reviewSubmitted ]
+	);
 	return (
 		<form onSubmit={handleSubmit}>
-			<Box sx={{ px: '2vw' }}>
-				<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+			<Box sx={{ px: '2vw', width: '20vw' }}>
+				<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
 					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
 						<TextField
 							variant="standard"
@@ -41,36 +86,16 @@ const ReviewForm = (apiEndpoint) => {
 							required
 						/>
 					</FormControl>
-					<FormControl>
+					<FormGroup>
 						<FormControlLabel
-							value="start"
-							control={
-								<Checkbox
-									icon={<FastfoodOutlinedIcon />}
-									checkedIcon={<FastfoodIcon />}
-									value={true}
-									onChange={handleWouldEatChange}
-								/>
-							}
+							control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
 							label="Would eat again"
-							labelPlacement="start"
 						/>
-					</FormControl>
-					<FormControl>
 						<FormControlLabel
-							value="start"
-							control={
-								<Checkbox
-									icon={<FavoriteBorder />}
-									checkedIcon={<Favorite />}
-									value={true}
-									onChange={handleWouldQueueChange}
-								/>
-							}
+							control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
 							label="Would queue again"
-							labelPlacement="start"
 						/>
-					</FormControl>
+					</FormGroup>
 				</Box>
 				<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
 					ADD NEW REVIEW

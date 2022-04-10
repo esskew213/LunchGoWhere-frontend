@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
-  Typography,
-  TextField,
-  FormControl,
-  InputLabel,
-  Button,
-  InputAdornment,
-  Box,
-  Divider,
-  FormLabel,
-  Modal,
-} from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import axios from "axios";
-import apis from "../utils/apiCalls";
-import { useNavigate } from "react-router-dom";
+	Typography,
+	TextField,
+	FormControl,
+	InputLabel,
+	Button,
+	InputAdornment,
+	Box,
+	Divider,
+	FormLabel,
+	Modal
+} from '@mui/material';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import axios from 'axios';
+import apis from '../utils/apiCalls';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   position: "absolute",
