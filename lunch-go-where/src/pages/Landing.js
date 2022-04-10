@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-	Typography,
-	TextField,
-	FormControl,
-	InputLabel,
-	Button,
-	InputAdornment,
-	Box,
-	Divider,
-	FormLabel,
-	Modal
-} from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import axios from 'axios';
-import apis from '../utils/apiCalls';
-import { useNavigate } from 'react-router-dom';
+    Typography,
+    TextField,
+    FormControl,
+    InputLabel,
+    Button,
+    InputAdornment,
+    Box,
+    Divider,
+    FormLabel,
+    Modal,
+} from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import axios from "axios";
+import apis from "../utils/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 const style = {
     position: "absolute",
@@ -101,11 +101,10 @@ const Landing = () => {
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-            }}
-        >
+        <div>
+            <Box>
+                <Typography variant="h2">Lunch go where?</Typography>
+            </Box>
             <form onSubmit={handleSubmit}>
                 <Box
                     sx={{
@@ -126,7 +125,6 @@ const Landing = () => {
                             value={username}
                             onChange={handleUsernameChange}
                             required
-                            sx={{ mt: "30px" }}
                         />
                     </FormControl>
                     <FormControl variant="standard" required>
@@ -138,7 +136,6 @@ const Landing = () => {
                             value={password}
                             onChange={handlePasswordChange}
                             required
-                            sx={{ mt: "30px" }}
                         />
                     </FormControl>
                     <Button
