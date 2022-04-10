@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import useSetInputState from '../hooks/useSetInputState';
-import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel } from '@mui/material';
+import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel, FormGroup, Switch } from '@mui/material';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
@@ -33,8 +33,8 @@ const ReviewForm = ({ stallID }) => {
 	}, []);
 	return (
 		<form onSubmit={handleSubmit}>
-			<Box sx={{ px: '2vw' }}>
-				<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+			<Box sx={{ px: '2vw', width: '20vw' }}>
+				<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
 					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
 						<TextField
 							variant="standard"
@@ -57,38 +57,16 @@ const ReviewForm = ({ stallID }) => {
 							required
 						/>
 					</FormControl>
-					<FormControl>
+					<FormGroup>
 						<FormControlLabel
-							value="start"
-							control={
-								<Checkbox
-									icon={<FastfoodOutlinedIcon />}
-									checkedIcon={<FastfoodIcon />}
-									value={true}
-									onChange={handleWouldEatChange}
-									defaultChecked={wouldEatAgain ? true : false}
-								/>
-							}
+							control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
 							label="Would eat again"
-							labelPlacement="start"
 						/>
-					</FormControl>
-					<FormControl>
 						<FormControlLabel
-							value="start"
-							control={
-								<Checkbox
-									icon={<FavoriteBorder />}
-									checkedIcon={<Favorite />}
-									value={true}
-									onChange={handleWouldQueueChange}
-									defaultChecked={wouldQueueAgain ? true : false}
-								/>
-							}
+							control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
 							label="Would queue again"
-							labelPlacement="start"
 						/>
-					</FormControl>
+					</FormGroup>
 				</Box>
 				<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
 					ADD NEW REVIEW
