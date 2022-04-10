@@ -5,6 +5,8 @@ import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Result from './pages/Result';
 import NewStall from './pages/NewStall';
+import { FavoriteSharp } from '@mui/icons-material';
+
 function App() {
 	return (
 		<Routes>

@@ -11,8 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
 
-const pages = [ 'Home', 'Add A Stall', 'My Favourites' ];
+const pages = { home: 'Home', new: 'Add A Stall', favourites: 'My Favourites' };
 const settings = [ 'Profile', 'Logout' ];
 const logo = 'LUNCHGOWHERE';
 const ResponsiveAppBar = () => {
@@ -71,9 +72,11 @@ const ResponsiveAppBar = () => {
 								display: { xs: 'block', md: 'none' }
 							}}
 						>
-							{pages.map((page) => (
+							{Object.keys(pages).map((page) => (
 								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
+									<Link style={{ textDecoration: 'none', colour: 'white' }} to={`/${page}`}>
+										{pages[page]}
+									</Link>
 								</MenuItem>
 							))}
 						</Menu>
@@ -87,13 +90,15 @@ const ResponsiveAppBar = () => {
 						{logo}
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						{pages.map((page) => (
+						{Object.keys(pages).map((page) => (
 							<Button
 								key={page}
 								onClick={handleCloseNavMenu}
 								sx={{ my: 2, color: 'white', display: 'block' }}
 							>
-								{page}
+								<Link style={{ textDecoration: 'none', colour: 'white' }} to={`/${page}`}>
+									{pages[page]}
+								</Link>
 							</Button>
 						))}
 					</Box>
