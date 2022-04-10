@@ -23,7 +23,6 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
   textAlign: "center",
@@ -71,6 +70,7 @@ const Landing = () => {
     console.log("SUBMITTING", username, password);
     try {
       await apis.login({ username: username, password: password });
+      setUsername("");
       setPassword("");
       navigate("/home");
     } catch (err) {
