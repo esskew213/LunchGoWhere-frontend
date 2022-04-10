@@ -47,7 +47,6 @@ const NewStallForm = () => {
 	}, []);
 
 	let navigate = useNavigate();
-	let path = '../review';
 
 	const handleImageChange = (evt) => {
 		const img = {
@@ -66,13 +65,16 @@ const NewStallForm = () => {
 		formData.append('location', location);
 		formData.append('cuisine', cuisine);
 		console.log(stallName, location, cuisine, image.data);
-		apis.postNewStall(formData);
-		resetStallName();
-		resetCuisine();
-		setLocation(0);
-		navigate(path);
+		apis
+			.postNewStall(formData)
+			.then((res) => {
+				resetStallName();
+				resetCuisine();
+				setLocation(0);
+				navigate(`../result/${res.data.stallID}`);
+			})
+			.catch((err) => console.log(err));
 	};
-
 	return (
 		<React.Fragment>
 			{image.preview && <img src={image.preview} alt="preview" width="200" height="200" />}

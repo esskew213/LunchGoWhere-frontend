@@ -18,6 +18,7 @@ const postNewStall = async (body) => {
 		withCredentials: true
 	});
 	console.log('POSTED NEW STALL', response);
+	return response;
 };
 
 const postNewReview = async (body) => {
