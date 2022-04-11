@@ -21,12 +21,10 @@ const pages = {
     new: "Add A Stall",
     favourites: "My Favourites",
 };
-const logout = "Logout";
 const logo = "LUNCHGOWHERE";
 const ResponsiveAppBar = () => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -39,10 +37,6 @@ const ResponsiveAppBar = () => {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
     };
 
     return (

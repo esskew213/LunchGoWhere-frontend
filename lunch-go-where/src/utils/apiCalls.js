@@ -24,7 +24,9 @@ const postNewStall = async (body) => {
 };
 
 const postNewReview = async (body) => {
-    await axios.post(baseURL + "/review", body, { withCredentials: true });
+    await axios.post(baseURL + "/review", body, {
+        withCredentials: true,
+    });
 };
 
 const updateReview = async (body) => {
@@ -32,7 +34,7 @@ const updateReview = async (body) => {
 };
 
 const getRecommendedStalls = async () => {
-    const response = await axios.get(baseURL + "/home");
+    const response = await axios.get(baseURL + "/food/home");
     return response.data;
 };
 
@@ -61,7 +63,7 @@ const logoutUser = async () => {
 
 const getOneStall = async (id) => {
     console.log(id);
-    const response = await axios.get(baseURL + "/food/" + id, {
+    const response = await axios.get(baseURL + "/food/stall/" + id, {
         withCredentials: true,
     });
     return response;
