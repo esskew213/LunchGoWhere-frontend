@@ -1,44 +1,44 @@
-import axios from 'axios';
-const baseURL = 'http://localhost:5001';
+import axios from "axios";
+const baseURL = "http://localhost:5001";
 
 const login = async (body) => {
-	const response = await axios.post(baseURL + '/login', body, {
+	const response = await axios.post(baseURL + "/login", body, {
 		withCredentials: true
 	});
 	console.log(response);
 };
 
 const getExistingReview = async (id) => {
-	const response = await axios.get(baseURL + '/review/' + id, { withCredentials: true });
+	const response = await axios.get(baseURL + "/review/" + id, { withCredentials: true });
 	return response;
 };
 
 const postNewStall = async (body) => {
-	const response = await axios.post(baseURL + '/new', body, {
+	const response = await axios.post(baseURL + "/new", body, {
 		withCredentials: true
 	});
-	console.log('POSTED NEW STALL', response);
+	console.log("POSTED NEW STALL", response);
 	return response;
 };
 
 const postNewReview = async (body) => {
-	await axios.post(baseURL + '/review', body, { withCredentials: true });
+	await axios.post(baseURL + "/review", body, { withCredentials: true });
 };
 
 const updateReview = async (body) => {
-	await axios.patch(baseURL + '/review', body, { withCredentials: true });
+	await axios.patch(baseURL + "/review", body, { withCredentials: true });
 };
 
 const getRecommendedStalls = async () => {
-	const response = await axios.get(baseURL + '/home');
+	const response = await axios.get(baseURL + "/home");
 	return response.data;
 };
 
 const postSignUp = async (body) => {
-	const response = await axios.post(baseURL + '/signup', body, {
+	const response = await axios.post(baseURL + "/signup", body, {
 		withCredentials: true
 	});
-	console.log('POSTED SIGNUP', response);
+	console.log("POSTED SIGNUP", response);
 	return response.data;
 };
 
@@ -51,7 +51,7 @@ const checkAuthUser = async () => {
 
 const getOneStall = async (id) => {
 	console.log(id);
-	const response = await axios.get(baseURL + '/food/' + id, { withCredentials: true });
+	const response = await axios.get(baseURL + "/food/" + id, { withCredentials: true });
 	return response;
 };
 const apiCalls = {

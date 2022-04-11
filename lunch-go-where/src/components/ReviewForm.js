@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import useSetInputState from '../hooks/useSetInputState';
-import { Typography, TextField, FormControl, Button, Box, FormControlLabel, FormGroup, Switch } from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import apis from '../utils/apiCalls';
+import React, { useEffect, useState } from "react";
+import useSetInputState from "../hooks/useSetInputState";
+import { Typography, TextField, FormControl, Button, Box, FormControlLabel, FormGroup, Switch } from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import apis from "../utils/apiCalls";
 
 const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
@@ -37,7 +37,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 				.then((res) => {
 					console.log(res);
 					if (res.data.review !== null) {
-						console.log('Previous review detected.', res.data);
+						console.log("Previous review detected.", res.data);
 						const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data.review;
 						setPrice(price);
 						setWaitTime(waitTime);
@@ -45,7 +45,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 						setWouldQueue(wouldQueueAgain);
 						setHasReviewedBefore(true);
 					} else {
-						console.log('No previous review detected.');
+						console.log("No previous review detected.");
 					}
 				})
 				.catch((err) => {
@@ -57,23 +57,23 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	return (
 		<Box
 			sx={{
-				display: 'flex',
-				flexDirection: 'column',
+				display: "flex",
+				flexDirection: "column",
 
-				width: '20vw',
-				minWidth: '300px',
-				maxWidth: '400px',
-				backgroundColor: 'secondary.light',
-				borderRadius: '20px',
-				p: '20px',
-				boxSizing: 'border-box'
+				width: "20vw",
+				minWidth: "300px",
+				maxWidth: "400px",
+				backgroundColor: "secondary.light",
+				borderRadius: "20px",
+				p: "20px",
+				boxSizing: "border-box"
 			}}
 		>
-			<Box sx={{ mx: 'auto' }}>
+			<Box sx={{ mx: "auto" }}>
 				<Typography variant="h6">Your review</Typography>
 				<form onSubmit={handleSubmit}>
-					<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
+					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
 							<TextField
 								fullWidth
 								variant="standard"
@@ -86,7 +86,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 								helperText="Around how much did you spend?"
 							/>
 						</FormControl>
-						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
 							<TextField
 								fullWidth
 								variant="standard"
@@ -101,7 +101,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 						</FormControl>
 						<FormGroup>
 							<FormControlLabel
-								sx={{ mt: '10px' }}
+								sx={{ mt: "10px" }}
 								control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
 								label="Would eat again"
 							/>
@@ -115,9 +115,9 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 							endIcon={<ArrowForwardIosIcon />}
 							variant="contained"
 							type="submit"
-							sx={{ mt: '30px', width: 'min-content', alignSelf: 'flex-end' }}
+							sx={{ mt: "30px", width: "min-content", alignSelf: "flex-end" }}
 						>
-							{hasReviewedBefore ? 'UPDATE' : 'SUBMIT'}
+							{hasReviewedBefore ? "UPDATE" : "SUBMIT"}
 						</Button>
 					</Box>
 				</form>
