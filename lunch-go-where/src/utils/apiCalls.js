@@ -25,6 +25,10 @@ const postNewReview = async (body) => {
 	await axios.post(baseURL + "/review", body, { withCredentials: true });
 };
 
+const deleteReview = async (id) => {
+	await axios.delete(baseURL + "/review/" + id, { withCredentials: true });
+};
+
 const updateReview = async (body) => {
 	await axios.patch(baseURL + "/review", body, { withCredentials: true });
 };
@@ -63,7 +67,8 @@ const apiCalls = {
 	checkAuthUser,
 	getOneStall,
 	getExistingReview,
-	updateReview
+	updateReview,
+	deleteReview
 };
 
 export default apiCalls;
