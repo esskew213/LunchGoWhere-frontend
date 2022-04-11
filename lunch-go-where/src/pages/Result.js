@@ -49,7 +49,7 @@ const Result = () => {
 		<React.Fragment>
 			<ResponsiveAppBar />
 			{errMessage ? (
-				<Typography>{errMessage}</Typography>
+				<Typography sx={{ textAlign: 'center' }}>{errMessage}</Typography>
 			) : (
 				<React.Fragment>
 					<Box
@@ -58,21 +58,23 @@ const Result = () => {
 							flexDirection: 'column',
 							alignItems: 'flex-start',
 							justifyContent: 'flex-start',
-							px: '5vw',
+							px: '2vw',
 							py: '5vh',
 							width: '100vw',
 							boxSizing: 'border-box'
 						}}
 					>
-						<Typography variant="h4" gutterBottom>
+						<Typography variant="h3" gutterBottom>
 							{stall.stallName}
 						</Typography>
 						<Box
 							sx={{
 								display: 'flex',
 								flexDirection: 'row',
-								justifyContent: 'flex-start',
-								alignItems: 'flex-start'
+								justifyContent: 'space-between',
+								width: '100%',
+								alignItems: 'flex-start',
+								flexWrap: 'wrap'
 							}}
 						>
 							<Box
@@ -175,13 +177,13 @@ const Result = () => {
 									<Typography>No reviews yet. Add a review!</Typography>
 								)}
 							</Box>
-						</Box>
 
-						<ReviewForm
-							stallID={id}
-							setReviewSubmitted={setReviewSubmitted}
-							reviewSubmitted={reviewSubmitted}
-						/>
+							<ReviewForm
+								stallID={id}
+								setReviewSubmitted={setReviewSubmitted}
+								reviewSubmitted={reviewSubmitted}
+							/>
+						</Box>
 					</Box>
 				</React.Fragment>
 			)}
