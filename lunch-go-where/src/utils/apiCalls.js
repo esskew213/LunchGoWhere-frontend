@@ -53,7 +53,7 @@ const checkAuthUser = async () => {
 
 const getOneStall = async (id) => {
     console.log(id);
-    const response = await axios.get(baseURL + "/food/" + id, {
+    const response = await axios.get(baseURL + "/food/stall/" + id, {
         withCredentials: true,
     });
     return response;

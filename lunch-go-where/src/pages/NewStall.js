@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
-import React from 'react';
-import NewStallForm from '../components/NewStallForm';
-import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import { Typography } from "@mui/material";
+import React from "react";
+import NewStallForm from "../components/NewStallForm";
+import ResponsiveAppBar from "../components/ResponsiveAppBar";
 
 const NewStall = () => {
 	return (

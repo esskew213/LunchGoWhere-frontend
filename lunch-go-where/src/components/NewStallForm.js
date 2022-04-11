@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useSetInputState from '../hooks/useSetInputState';
-import { FormControl, Box, TextField, Button, MenuItem, InputLabel, Select, Input } from '@mui/material';
-import AutocompleteLocation from './AutocompleteLocation';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import apis from '../utils/apiCalls';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useSetInputState from "../hooks/useSetInputState";
+import { FormControl, Box, TextField, Button, MenuItem, InputLabel, Select, Input } from "@mui/material";
+import AutocompleteLocation from "./AutocompleteLocation";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import apis from "../utils/apiCalls";
 
 const NewStallForm = () => {
 	//// Using the useSetInputState custom hook
-	const [ stallName, setStallName, handleStallNameChange, resetStallName ] = useSetInputState('');
+	const [ stallName, setStallName, handleStallNameChange, resetStallName ] = useSetInputState("");
 
-	const [ cuisine, setCuisine, handleCuisineChange, resetCuisine ] = useSetInputState('');
+	const [ cuisine, setCuisine, handleCuisineChange, resetCuisine ] = useSetInputState("");
 
-	const [ image, setImage ] = useState('');
+	const [ image, setImage ] = useState("");
 
 	//// Need to set a special handler for location to get value from autocomplete field
-	const [ location, setLocation ] = useState('');
+	const [ location, setLocation ] = useState("");
 	const handleLocationChange = (evt, value) => {
 		setLocation(value);
 	};
@@ -25,9 +25,9 @@ const NewStallForm = () => {
 
 	const getLocation = () => {
 		if (!navigator.geolocation) {
-			setStatus('Geolocation is not supported by your browser');
+			setStatus("Geolocation is not supported by your browser");
 		} else {
-			setStatus('Locating...');
+			setStatus("Locating...");
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
 					setStatus(null);
@@ -35,7 +35,7 @@ const NewStallForm = () => {
 					setLng(position.coords.longitude);
 				},
 				() => {
-					setStatus('Unable to retrieve your location');
+					setStatus("Unable to retrieve your location");
 				}
 			);
 		}
@@ -60,10 +60,10 @@ const NewStallForm = () => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		let formData = new FormData();
-		formData.append('file', image.data);
-		formData.append('stallName', stallName);
-		formData.append('location', location);
-		formData.append('cuisine', cuisine);
+		formData.append("file", image.data);
+		formData.append("stallName", stallName);
+		formData.append("location", location);
+		formData.append("cuisine", cuisine);
 		console.log(stallName, location, cuisine, image.data);
 		apis
 			.postNewStall(formData)
@@ -80,9 +80,9 @@ const NewStallForm = () => {
 			{image.preview && <img src={image.preview} alt="preview" width="200" height="200" />}
 
 			<form onSubmit={handleSubmit} encType="multipart/form-data">
-				<Box sx={{ px: '2vw' }}>
-					<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-						<FormControl variant="standard" required sx={{ mr: '2vw' }}>
+				<Box sx={{ px: "2vw" }}>
+					<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+						<FormControl variant="standard" required sx={{ mr: "2vw" }}>
 							<TextField
 								variant="standard"
 								size="small"
@@ -93,10 +93,10 @@ const NewStallForm = () => {
 								required
 							/>
 						</FormControl>
-						<FormControl variant="standard" required sx={{ mr: '2vw' }}>
+						<FormControl variant="standard" required sx={{ mr: "2vw" }}>
 							<AutocompleteLocation handleFieldChange={handleLocationChange} />
 						</FormControl>
-						<FormControl variant="standard" required sx={{ minWidth: '120px' }}>
+						<FormControl variant="standard" required sx={{ minWidth: "120px" }}>
 							<InputLabel id="cuisine">Cuisine</InputLabel>
 							<Select
 								labelId="cuisine"
@@ -105,20 +105,20 @@ const NewStallForm = () => {
 								value={cuisine}
 								onChange={handleCuisineChange}
 							>
-								<MenuItem value={'Western'}>Western</MenuItem>
-								<MenuItem value={'Chinese'}>Chinese</MenuItem>
-								<MenuItem value={'Malay'}>Malay</MenuItem>
-								<MenuItem value={'Korean'}>Korean</MenuItem>
-								<MenuItem value={'Japanese'}>Japanese</MenuItem>
-								<MenuItem value={'Indian'}>Indian</MenuItem>
-								<MenuItem value={'Others'}>Others</MenuItem>
+								<MenuItem value={"Western"}>Western</MenuItem>
+								<MenuItem value={"Chinese"}>Chinese</MenuItem>
+								<MenuItem value={"Malay"}>Malay</MenuItem>
+								<MenuItem value={"Korean"}>Korean</MenuItem>
+								<MenuItem value={"Japanese"}>Japanese</MenuItem>
+								<MenuItem value={"Indian"}>Indian</MenuItem>
+								<MenuItem value={"Others"}>Others</MenuItem>
 							</Select>
 						</FormControl>
-						<FormControl variant="standard" required sx={{ minWidth: '120px' }}>
+						<FormControl variant="standard" required sx={{ minWidth: "120px" }}>
 							<Input id="stallImg" type="file" name="file" onChange={handleImageChange} />
 						</FormControl>
 					</Box>
-					<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
+					<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: "30px" }}>
 						ADD NEW REVIEW
 					</Button>
 				</Box>
