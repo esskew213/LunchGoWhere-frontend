@@ -58,107 +58,131 @@ const Result = () => {
 							flexDirection: 'column',
 							alignItems: 'flex-start',
 							justifyContent: 'flex-start',
-							p: '2rem'
+							px: '5vw',
+							py: '5vh',
+							width: '100vw',
+							boxSizing: 'border-box'
 						}}
 					>
 						<Typography variant="h4" gutterBottom>
 							{stall.stallName}
 						</Typography>
-						<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'flex-start',
+								alignItems: 'flex-start'
+							}}
+						>
 							<Box
 								sx={{
-									width: '20vw',
-									minWidth: '250px',
-									maxWidth: '400px',
-									borderRadius: '20px',
-									mr: '50px'
+									display: 'flex',
+									flexDirection: 'row',
+									alignItems: 'flex-start',
+									flexWrap: 'wrap'
+									// width: '60vw'
 								}}
 							>
-								<img
-									src="https://www.visitsingapore.com/content/dam/desktop/global/tourism-editorials/stb/sniffing-out-local-food/2018/signpost-940x940.jpg"
-									alt={stall.stallName}
-									style={{ width: '100%', borderRadius: '2vw' }}
-								/>
-								<List>
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<LocationOnIcon />
-										</ListItemIcon>
-										<ListItemText
-											sx={{ fontStyle: 'italic' }}
-											primary={`${stall.location.centerName}`}
-										/>
-									</ListItem>
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<RestaurantIcon />
-										</ListItemIcon>
-										<ListItemText sx={{ fontStyle: 'italic' }} primary={`${stall.cuisine} food`} />
-									</ListItem>
-								</List>
-							</Box>
-							{stall.numReviews ? (
-								<Box>
+								<Box
+									sx={{
+										width: '20vw',
+										minWidth: '300px',
+										mr: '50px',
+										maxWidth: '500px'
+									}}
+								>
+									<img
+										src="https://www.visitsingapore.com/content/dam/desktop/global/tourism-editorials/stb/sniffing-out-local-food/2018/signpost-940x940.jpg"
+										alt={stall.stallName}
+										style={{ width: '100%', borderRadius: '2vw' }}
+									/>
 									<List>
 										<ListItem disablePadding>
 											<ListItemIcon>
-												<PaidIcon />
+												<LocationOnIcon />
 											</ListItemIcon>
 											<ListItemText
-												primary={`$${stall.calcPrice}`}
-												secondary="average wait time"
+												sx={{ fontStyle: 'italic' }}
+												primary={`${stall.location.centerName}`}
 											/>
 										</ListItem>
 										<ListItem disablePadding>
 											<ListItemIcon>
-												<AccessTimeIcon />
+												<RestaurantIcon />
 											</ListItemIcon>
 											<ListItemText
-												primary={`${stall.calcWait} min`}
-												secondary="average wait time"
-											/>
-										</ListItem>
-
-										<ListItem disablePadding>
-											<ListItemIcon>
-												<FavoriteIcon />
-											</ListItemIcon>
-											<ListItemText
-												primary={`${stall.calcWouldEat}%`}
-												secondary="would eat again"
-											/>
-										</ListItem>
-
-										<ListItem disablePadding>
-											<ListItemIcon>
-												<PeopleIcon />
-											</ListItemIcon>
-											<ListItemText
-												primary={`${stall.calcWouldQueue}%`}
-												secondary="would queue again"
-											/>
-										</ListItem>
-
-										<ListItem disableGutters>
-											<ListItemText
-												sx={{ fontWeight: 'light', fontSize: 16 }}
-												primary={`Based on ${stall.numReviews} review${stall.numReviews === 1
-													? ''
-													: 's'}`}
+												sx={{ fontStyle: 'italic' }}
+												primary={`${stall.cuisine} food`}
 											/>
 										</ListItem>
 									</List>
 								</Box>
-							) : (
-								<Typography>No reviews yet. Add a review!</Typography>
-							)}
+								{stall.numReviews ? (
+									<Box>
+										<List>
+											<ListItem disablePadding>
+												<ListItemIcon>
+													<PaidIcon />
+												</ListItemIcon>
+												<ListItemText
+													primary={`$${stall.calcPrice}`}
+													secondary="average wait time"
+												/>
+											</ListItem>
+											<ListItem disablePadding>
+												<ListItemIcon>
+													<AccessTimeIcon />
+												</ListItemIcon>
+												<ListItemText
+													primary={`${stall.calcWait} min`}
+													secondary="average wait time"
+												/>
+											</ListItem>
+
+											<ListItem disablePadding>
+												<ListItemIcon>
+													<FavoriteIcon />
+												</ListItemIcon>
+												<ListItemText
+													primary={`${stall.calcWouldEat}%`}
+													secondary="would eat again"
+												/>
+											</ListItem>
+
+											<ListItem disablePadding>
+												<ListItemIcon>
+													<PeopleIcon />
+												</ListItemIcon>
+												<ListItemText
+													primary={`${stall.calcWouldQueue}%`}
+													secondary="would queue again"
+												/>
+											</ListItem>
+
+											<ListItem disableGutters>
+												<ListItemText
+													sx={{ fontWeight: 'light', fontSize: 16 }}
+													primary={`Based on ${stall.numReviews} review${stall.numReviews ===
+													1
+														? ''
+														: 's'}`}
+												/>
+											</ListItem>
+										</List>
+									</Box>
+								) : (
+									<Typography>No reviews yet. Add a review!</Typography>
+								)}
+							</Box>
 						</Box>
+
+						<ReviewForm
+							stallID={id}
+							setReviewSubmitted={setReviewSubmitted}
+							reviewSubmitted={reviewSubmitted}
+						/>
 					</Box>
-					<ReviewForm
-						stallID={id}
-						setReviewSubmitted={setReviewSubmitted}
-						reviewSubmitted={reviewSubmitted}
-					/>
 				</React.Fragment>
 			)}
 		</React.Fragment>

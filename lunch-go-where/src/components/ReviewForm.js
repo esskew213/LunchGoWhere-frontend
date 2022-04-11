@@ -58,18 +58,22 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 		<React.Fragment>
 			<Box
 				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+
 					px: '2vw',
 					width: '20vw',
-					minWidth: '250px',
+					minWidth: '300px',
 					maxWidth: '400px',
 					backgroundColor: 'secondary.light',
 					borderRadius: '20px',
-					p: '20px'
+					p: '20px',
+					boxSizing: 'border-box'
 				}}
 			>
 				<Typography variant="h6">Your review</Typography>
 				<form onSubmit={handleSubmit}>
-					<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
+					<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
 						<FormControl margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
 							<TextField
 								fullWidth
