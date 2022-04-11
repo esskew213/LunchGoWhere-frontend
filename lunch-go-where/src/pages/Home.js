@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Typography, Box, Button } from '@mui/material';
-import ResponsiveAppBar from '../components/ResponsiveAppBar';
-import AutocompleteLocation from '../components/AutocompleteLocation';
-import Slider from '../components/Slider';
-import apis from '../utils/apiCalls';
-import IndividualCard from '../components/IndividualCard';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Typography, Box, Button } from "@mui/material";
+import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import AutocompleteLocation from "../components/AutocompleteLocation";
+import Slider from "../components/Slider";
+import apis from "../utils/apiCalls";
+import IndividualCard from "../components/IndividualCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-    const [location, setLocation] = useState('');
+    const [location, setLocation] = useState("");
     const [recStalls, setRecStalls] = useState([]);
     const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Home = () => {
             })
             .catch((err) => {
                 console.log(err.response);
-                navigate('/');
+                navigate("/");
             });
     }, []);
 
@@ -37,7 +37,7 @@ const Home = () => {
     return (
         <React.Fragment>
             <ResponsiveAppBar />
-            <Typography sx={{ textAlign: 'center' }} variant='h4'>
+            <Typography sx={{ textAlign: "center" }} variant="h4">
                 SEARCH
             </Typography>
             <Box>
@@ -46,37 +46,36 @@ const Home = () => {
                         handleFieldChange={handleLocationChange}
                     />
                     <Slider
-                        label={'Price Range'}
+                        label={"Price Range"}
                         step={5}
                         defaultValue={5}
                         min={0}
                         max={20}
                     />
                     <Slider
-                        label={'Wait Time'}
+                        label={"Wait Time"}
                         step={5}
                         defaultValue={5}
                         min={0}
                         max={30}
                     />
-                    <Button color='secondary' type='submit' variant='contained'>
+                    <Button color="secondary" type="submit" variant="contained">
                         SEARCH
                     </Button>
                 </form>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+            <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
                 {recStalls
                     ? recStalls.map((stall, idKey) => {
-                          console.log(stall.stallName);
+                          console.log(stall.img.url);
                           return (
-                              <React.Fragment>
+                              <React.Fragment key={idKey}>
                                   <IndividualCard
-                                      key={idKey}
-                                      // img={stall.img}
+                                      img={stall.img.url}
                                       id={stall._id}
                                       nameOfStall={stall.stallName}
                                       cuisine={stall.cuisine}
-                                      location={stall.location}
+                                      location={stall.location.centerName}
                                   />
                                   {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
                               </React.Fragment>
