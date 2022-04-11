@@ -13,7 +13,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 const Result = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const [ stall, setStall ] = useState({ stallName: '', cuisine: '', location: '', submittedBy: '' });
+	const [ stall, setStall ] = useState({
+		stallName: '',
+		cuisine: '',
+		location: { centerName: '' },
+		img: { url: '' },
+		submittedBy: '',
+		calcPrice: '',
+		calcWait: '',
+		calcWouldEat: '',
+		calcWouldQueue: ''
+	});
 	const [ reviewSubmitted, setReviewSubmitted ] = useState(false);
 	const [ errMessage, setErrMessage ] = useState(null);
 	useEffect(
@@ -32,9 +42,9 @@ const Result = () => {
 				.getOneStall(id)
 				.then((res) => {
 					console.log(res);
-					if (res.data) {
+					if (res.data.stall) {
 						setErrMessage(null);
-						setStall(res.data);
+						setStall(res.data.stall);
 					}
 				})
 				.catch((err) => {
@@ -97,7 +107,7 @@ const Result = () => {
 									}}
 								>
 									<img
-										src="https://www.visitsingapore.com/content/dam/desktop/global/tourism-editorials/stb/sniffing-out-local-food/2018/signpost-940x940.jpg"
+										src={stall.img.url}
 										alt={stall.stallName}
 										style={{ width: '100%', borderRadius: '2vw' }}
 									/>
