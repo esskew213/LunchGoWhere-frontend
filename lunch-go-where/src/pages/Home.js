@@ -66,11 +66,12 @@ const Home = () => {
             </Box>
             <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 {recStalls
-                    ? recStalls.map((stall) => {
+                    ? recStalls.map((stall, idKey) => {
                           console.log(stall.stallName);
                           return (
                               <React.Fragment>
                                   <IndividualCard
+                                      key={idKey}
                                       // img={stall.img}
                                       id={stall._id}
                                       nameOfStall={stall.stallName}
