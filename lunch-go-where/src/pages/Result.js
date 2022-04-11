@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReviewForm from '../components/ReviewForm';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
-import { Typography, Box, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Divider } from '@mui/material';
+import { Typography, Box, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -64,9 +64,10 @@ const Result = () => {
 							boxSizing: 'border-box'
 						}}
 					>
-						<Typography variant="h3" gutterBottom>
+						<Typography sx={{ color: 'primary.dark' }} variant="h3" gutterBottom>
 							{stall.stallName}
 						</Typography>
+
 						<Box
 							sx={{
 								display: 'flex',
@@ -82,7 +83,8 @@ const Result = () => {
 									display: 'flex',
 									flexDirection: 'row',
 									alignItems: 'flex-start',
-									flexWrap: 'wrap'
+									flexWrap: 'wrap',
+									mr: '50px'
 									// width: '60vw'
 								}}
 							>
@@ -128,7 +130,7 @@ const Result = () => {
 													<PaidIcon />
 												</ListItemIcon>
 												<ListItemText
-													primary={`$${stall.calcPrice}`}
+													primary={`~$${stall.calcPrice}`}
 													secondary="average wait time"
 												/>
 											</ListItem>
@@ -137,7 +139,7 @@ const Result = () => {
 													<AccessTimeIcon />
 												</ListItemIcon>
 												<ListItemText
-													primary={`${stall.calcWait} min`}
+													primary={`~${stall.calcWait} min`}
 													secondary="average wait time"
 												/>
 											</ListItem>

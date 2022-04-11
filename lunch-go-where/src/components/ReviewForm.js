@@ -59,6 +59,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 			sx={{
 				display: 'flex',
 				flexDirection: 'column',
+
 				width: '20vw',
 				minWidth: '300px',
 				maxWidth: '400px',
@@ -68,52 +69,59 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 				boxSizing: 'border-box'
 			}}
 		>
-			<Typography variant="h6">Your review</Typography>
-			<form onSubmit={handleSubmit}>
-				<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-					<FormControl margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
-						<TextField
-							fullWidth
-							variant="standard"
-							size="small"
-							label="Price"
-							type="number"
-							value={price}
-							onChange={handlePriceChange}
-							required
-							helperText="How much did you spend?"
-						/>
-					</FormControl>
-					<FormControl margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
-						<TextField
-							fullWidth
-							variant="standard"
-							size="small"
-							label="Wait Time"
-							type="number"
-							value={waitTime}
-							onChange={handleWaitTimeChange}
-							required
-							helperText="How long did it take to get your food?"
-						/>
-					</FormControl>
-					<FormGroup>
-						<FormControlLabel
-							sx={{ mt: '10px' }}
-							control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
-							label="Would eat again"
-						/>
-						<FormControlLabel
-							sx={{ mt: '10px' }}
-							control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
-							label="Would queue again"
-						/>
-					</FormGroup>
-				</Box>
-				<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
-					{hasReviewedBefore ? 'UPDATE REVIEW' : 'ADD REVIEW'}
-				</Button>
-			</form>
+			<Box sx={{ mx: 'auto' }}>
+				<Typography variant="h6">Your review</Typography>
+				<form onSubmit={handleSubmit}>
+					<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
+							<TextField
+								fullWidth
+								variant="standard"
+								size="small"
+								label="Price"
+								type="number"
+								value={price}
+								onChange={handlePriceChange}
+								required
+								helperText="Around how much did you spend?"
+							/>
+						</FormControl>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: '2vw' }}>
+							<TextField
+								fullWidth
+								variant="standard"
+								size="small"
+								label="Wait Time"
+								type="number"
+								value={waitTime}
+								onChange={handleWaitTimeChange}
+								required
+								helperText="How long did it take to get your food?"
+							/>
+						</FormControl>
+						<FormGroup>
+							<FormControlLabel
+								sx={{ mt: '10px' }}
+								control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
+								label="Would eat again"
+							/>
+							<FormControlLabel
+								control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
+								label="Would queue again"
+							/>
+						</FormGroup>
+
+						<Button
+							endIcon={<ArrowForwardIosIcon />}
+							variant="contained"
+							type="submit"
+							sx={{ mt: '30px', width: 'min-content', alignSelf: 'flex-end' }}
+						>
+							{hasReviewedBefore ? 'UPDATE' : 'SUBMIT'}
+						</Button>
+					</Box>
+				</form>
+			</Box>
 		</Box>
 	);
 };
