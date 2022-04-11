@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-	Typography,
-	TextField,
-	FormControl,
-	InputLabel,
-	Button,
-	InputAdornment,
-	Box,
-	Divider,
-	FormLabel,
-	Modal
-} from '@mui/material';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import axios from 'axios';
-import apis from '../utils/apiCalls';
-import { useNavigate } from 'react-router-dom';
+    Typography,
+    TextField,
+    FormControl,
+    InputLabel,
+    Button,
+    InputAdornment,
+    Box,
+    Divider,
+    FormLabel,
+    Modal,
+} from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import axios from "axios";
+import apis from "../utils/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 const style = {
     position: "absolute",
@@ -104,18 +104,22 @@ const Landing = () => {
         <div
             style={{
                 display: "flex",
+                height: "100vh",
+                width: "100vw",
+                alignItems: "center",
             }}
         >
-            <form onSubmit={handleSubmit}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        textAlign: "center",
-                        justifyContent: "center",
-                    }}
-                >
+            <form
+                onSubmit={handleSubmit}
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    width: "35%",
+                    padding: "80px",
+                }}
+            >
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <Typography variant="h2">Lunch go where?</Typography>
                     <FormControl variant="standard" required>
                         <TextField
@@ -141,22 +145,32 @@ const Landing = () => {
                             sx={{ mt: "30px" }}
                         />
                     </FormControl>
-                    <Button
-                        endIcon={<ArrowForwardIosIcon />}
-                        variant="contained"
-                        type="submit"
-                        sx={{ mt: "30px" }}
-                    >
-                        Let's Find Out!
-                    </Button>
-                    <Typography sx={{ mt: "30px" }}>
-                        Don't have an account?
-                        <Button onClick={handleOpen}>Sign up now</Button>
-                    </Typography>
                 </Box>
+                <Button
+                    endIcon={<ArrowForwardIosIcon />}
+                    variant="contained"
+                    type="submit"
+                    sx={{ mt: "30px" }}
+                >
+                    Let's Find Out!
+                </Button>
+                <Typography sx={{ mt: "30px" }}>
+                    Don't have an account?
+                    <Button onClick={handleOpen}>Sign up now</Button>
+                </Typography>
             </form>
             <Box>
-                <img src="" alt="Landing page img" />
+                <img
+                    style={{
+                        objectFit: "cover",
+                        height: "100vh",
+                        width: "100vw",
+                        maxHeight: "100%",
+                        maxWidth: "100%",
+                    }}
+                    src="https://www.foodnavigator-usa.com/var/wrbm_gb_food_pharma/storage/images/_aliases/wrbm_large/publications/food-beverage-nutrition/foodnavigator-usa.com/article/2020/06/23/untapped-market-potential-found-in-big-gap-between-consumers-seeking-using-functional-foods/11514857-1-eng-GB/Untapped-market-potential-found-in-big-gap-between-consumers-seeking-using-functional-foods.jpg"
+                    alt="Landing page img"
+                />
             </Box>
             <Modal
                 open={open}
