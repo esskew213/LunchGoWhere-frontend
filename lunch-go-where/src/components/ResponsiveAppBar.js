@@ -1,27 +1,27 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
-import apis from '../utils/apiCalls';
-import { useNavigate } from 'react-router-dom';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import apis from "../utils/apiCalls";
+import { useNavigate } from "react-router-dom";
 
 const pages = {
-    home: 'Home',
-    new: 'Add A Stall',
-    favourites: 'My Favourites',
+    home: "Home",
+    new: "Add A Stall",
+    favourites: "My Favourites",
 };
-const logo = 'LUNCHGOWHERE';
+const logo = "LUNCHGOWHERE";
 const ResponsiveAppBar = () => {
     const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -29,9 +29,9 @@ const ResponsiveAppBar = () => {
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = async () => {
+    const handleLogout = async () => {
         const logout = await apis.logoutUser();
-        navigate('/');
+        navigate("/");
     };
 
     const handleCloseNavMenu = () => {
@@ -39,14 +39,14 @@ const ResponsiveAppBar = () => {
     };
 
     return (
-        <AppBar position='static'>
-            <Container maxWidth='xl'>
+        <AppBar position="static">
+            <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
-                        variant='h6'
+                        variant="h6"
                         noWrap
-                        component='div'
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        component="div"
+                        sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
                     >
                         {logo}
                     </Typography>
@@ -54,35 +54,35 @@ const ResponsiveAppBar = () => {
                     <Box
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
+                            display: { xs: "flex", md: "none" },
                         }}
                     >
                         <IconButton
-                            size='large'
-                            aria-label='account of current user'
-                            aria-controls='menu-appbar'
-                            aria-haspopup='true'
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
                             onClick={handleOpenNavMenu}
-                            color='inherit'
+                            color="inherit"
                         >
                             <MenuIcon />
                         </IconButton>
                         <Menu
-                            id='menu-appbar'
+                            id="menu-appbar"
                             anchorEl={anchorElNav}
                             anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
+                                vertical: "bottom",
+                                horizontal: "left",
                             }}
                             keepMounted
                             transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
+                                vertical: "top",
+                                horizontal: "left",
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
                             sx={{
-                                display: { xs: 'block', md: 'none' },
+                                display: { xs: "block", md: "none" },
                             }}
                         >
                             {Object.keys(pages).map((page) => (
@@ -92,8 +92,8 @@ const ResponsiveAppBar = () => {
                                 >
                                     <Link
                                         style={{
-                                            textDecoration: 'none',
-                                            colour: 'white',
+                                            textDecoration: "none",
+                                            colour: "white",
                                         }}
                                         to={`/${page}`}
                                     >
@@ -104,12 +104,12 @@ const ResponsiveAppBar = () => {
                         </Menu>
                     </Box>
                     <Typography
-                        variant='h6'
+                        variant="h6"
                         noWrap
-                        component='div'
+                        component="div"
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'flex', md: 'none' },
+                            display: { xs: "flex", md: "none" },
                         }}
                     >
                         {logo}
@@ -117,19 +117,19 @@ const ResponsiveAppBar = () => {
                     <Box
                         sx={{
                             flexGrow: 1,
-                            display: { xs: 'none', md: 'flex' },
+                            display: { xs: "none", md: "flex" },
                         }}
                     >
                         {Object.keys(pages).map((page) => (
                             <Button
                                 key={page}
                                 onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: "white", display: "block" }}
                             >
                                 <Link
                                     style={{
-                                        textDecoration: 'none',
-                                        colour: 'white',
+                                        textDecoration: "none",
+                                        colour: "white",
                                     }}
                                     to={`/${page}`}
                                 >
@@ -141,7 +141,7 @@ const ResponsiveAppBar = () => {
 
                     <Box sx={{ flexGrow: 0 }}>
                         <LogoutIcon
-                            onClick={handleOpenUserMenu}
+                            onClick={handleLogout}
                             sx={{ p: 0 }}
                         ></LogoutIcon>
                     </Box>
