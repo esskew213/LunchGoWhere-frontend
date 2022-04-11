@@ -69,6 +69,7 @@ const findStalls = async (body) => {
             withCredentials: true,
         }
     );
+    console.log(response);
     return response;
 };
 

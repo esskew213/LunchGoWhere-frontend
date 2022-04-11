@@ -11,22 +11,24 @@ const Home = () => {
     const [recStalls, setRecStalls] = useState([]);
     const [priceRange, setPriceRange] = useState("5");
     const [waitTime, setWaitTime] = useState("5");
+    const [triggeredAPI, setTriggeredAPI] = useState(false);
+    const [currentStalls, setCurrentStalls] = useState([]);
 
     const handleLocationChange = (evt, value) => {
         // evt.preventDefault();
-        console.log(value);
+        // console.log(value);
         setLocation(value);
     };
 
     const handlePriceChange = (evt) => {
         // evt.preventDefault();
-        console.log(evt.target.value);
+        // console.log(evt.target.value);
         setPriceRange(evt.target.value);
     };
 
     const handleTimeChange = (evt, value) => {
         // evt.preventDefault();
-        console.log(value);
+        // console.log(value);
         setWaitTime(value);
     };
     const handleSubmit = async (event) => {
@@ -37,8 +39,10 @@ const Home = () => {
             priceRange: priceRange,
             waitTime: waitTime,
         });
+        setTriggeredAPI(true);
         // console.log(value);
-        // setCurrentStalls(response.data);
+        // console.log(response);
+        setCurrentStalls(response.data);
         // console.log(response.data);
         // setInputLocation(true);
     };
@@ -84,13 +88,30 @@ const Home = () => {
                 </form>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-                {recStalls
-                    ? recStalls.map((stall) => {
+                {triggeredAPI
+                    ? currentStalls.map((currentStalls) => {
+                          console.log(currentStalls.img.url);
+                          return (
+                              <React.Fragment>
+                                  <IndividualCard
+                                      img={currentStalls.img.url}
+                                      id={currentStalls._id}
+                                      nameOfStall={currentStalls.stallName}
+                                      cuisine={currentStalls.cuisine}
+                                      location={
+                                          currentStalls.location.centerName
+                                      }
+                                  />
+                                  {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
+                              </React.Fragment>
+                          );
+                      })
+                    : recStalls.map((stall) => {
                           // console.log(stall.stallName);
                           return (
                               <React.Fragment>
                                   <IndividualCard
-                                      // img={stall.img}
+                                      img={stall.img}
                                       id={stall._id}
                                       nameOfStall={stall.stallName}
                                       cuisine={stall.cuisine}
@@ -99,8 +120,7 @@ const Home = () => {
                                   {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
                               </React.Fragment>
                           );
-                      })
-                    : null}
+                      })}
             </Box>
         </React.Fragment>
     );
