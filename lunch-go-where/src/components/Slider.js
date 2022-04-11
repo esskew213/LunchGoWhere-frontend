@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
-import Stack from '@mui/material/Stack';
-import PaidIcon from '@mui/icons-material/Paid';
-import { Typography } from '@mui/material';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import Stack from "@mui/material/Stack";
+import PaidIcon from "@mui/icons-material/Paid";
+import { Typography } from "@mui/material";
 export default function PriceSlider({ label, step, defaultValue, min, max }) {
 	return (
 		<Box sx={{ width: 300 }}>

@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import useSetInputState from '../hooks/useSetInputState';
-import { TextField, FormControl, Button, Box, Checkbox, FormControlLabel, FormGroup, Switch } from '@mui/material';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
-import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-import Favorite from '@mui/icons-material/Favorite';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import apis from '../utils/apiCalls';
+import React, { useEffect, useState } from "react";
+import useSetInputState from "../hooks/useSetInputState";
+import { Typography, TextField, FormControl, Button, Box, FormControlLabel, FormGroup, Switch } from "@mui/material";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import apis from "../utils/apiCalls";
 
 const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
@@ -16,11 +12,9 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const [ wouldQueueAgain, setWouldQueue ] = useSetInputState(false);
 	const handleWouldEatChange = (evt) => {
 		setWouldEat((prevState) => !prevState);
-		console.log(wouldEatAgain);
 	};
 	const handleWouldQueueChange = (evt) => {
 		setWouldQueue((prevState) => !prevState);
-		console.log(wouldQueueAgain);
 	};
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
@@ -43,7 +37,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 				.then((res) => {
 					console.log(res);
 					if (res.data.review !== null) {
-						console.log('Previous review detected.', res.data);
+						console.log("Previous review detected.", res.data);
 						const { price, waitTime, wouldEatAgain, wouldQueueAgain } = res.data.review;
 						setPrice(price);
 						setWaitTime(waitTime);
@@ -51,7 +45,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 						setWouldQueue(wouldQueueAgain);
 						setHasReviewedBefore(true);
 					} else {
-						console.log('No previous review detected.');
+						console.log("No previous review detected.");
 					}
 				})
 				.catch((err) => {
@@ -61,47 +55,74 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 		[ reviewSubmitted ]
 	);
 	return (
-		<form onSubmit={handleSubmit}>
-			<Box sx={{ px: '2vw', width: '20vw' }}>
-				<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
-					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Price"
-							type="number"
-							value={price}
-							onChange={handlePriceChange}
-							required
-						/>
-					</FormControl>
-					<FormControl variant="standard" required sx={{ mr: '2vw' }}>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Wait Time"
-							type="number"
-							value={waitTime}
-							onChange={handleWaitTimeChange}
-							required
-						/>
-					</FormControl>
-					<FormGroup>
-						<FormControlLabel
-							control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
-							label="Would eat again"
-						/>
-						<FormControlLabel
-							control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
-							label="Would queue again"
-						/>
-					</FormGroup>
-				</Box>
-				<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: '30px' }}>
-					ADD NEW REVIEW
-				</Button>
+		<Box
+			sx={{
+				display: "flex",
+				flexDirection: "column",
+
+				width: "20vw",
+				minWidth: "300px",
+				maxWidth: "400px",
+				backgroundColor: "secondary.light",
+				borderRadius: "20px",
+				p: "20px",
+				boxSizing: "border-box"
+			}}
+		>
+			<Box sx={{ mx: "auto" }}>
+				<Typography variant="h6">Your review</Typography>
+				<form onSubmit={handleSubmit}>
+					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
+							<TextField
+								fullWidth
+								variant="standard"
+								size="small"
+								label="Price"
+								type="number"
+								value={price}
+								onChange={handlePriceChange}
+								required
+								helperText="Around how much did you spend?"
+							/>
+						</FormControl>
+						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
+							<TextField
+								fullWidth
+								variant="standard"
+								size="small"
+								label="Wait Time"
+								type="number"
+								value={waitTime}
+								onChange={handleWaitTimeChange}
+								required
+								helperText="How long did it take to get your food?"
+							/>
+						</FormControl>
+						<FormGroup>
+							<FormControlLabel
+								sx={{ mt: "10px" }}
+								control={<Switch checked={wouldEatAgain} onChange={handleWouldEatChange} />}
+								label="Would eat again"
+							/>
+							<FormControlLabel
+								control={<Switch checked={wouldQueueAgain} onChange={handleWouldQueueChange} />}
+								label="Would queue again"
+							/>
+						</FormGroup>
+
+						<Button
+							endIcon={<ArrowForwardIosIcon />}
+							variant="contained"
+							type="submit"
+							sx={{ mt: "30px", width: "min-content", alignSelf: "flex-end" }}
+						>
+							{hasReviewedBefore ? "UPDATE" : "SUBMIT"}
+						</Button>
+					</Box>
+				</form>
 			</Box>
-		</form>
+		</Box>
 	);
 };
 

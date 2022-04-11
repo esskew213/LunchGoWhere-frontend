@@ -21,6 +21,7 @@ const pages = {
     new: "Add A Stall",
     favourites: "My Favourites",
 };
+
 const logo = "LUNCHGOWHERE";
 const ResponsiveAppBar = () => {
     const navigate = useNavigate();

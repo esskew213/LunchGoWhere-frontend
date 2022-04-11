@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const useSetInputState = (initialVal = '') => {
+const useSetInputState = (initialVal = "") => {
 	const [ state, setState ] = useState(initialVal);
 	const handleChange = (evt) => {
 		setState(evt.target.value);
