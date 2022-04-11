@@ -13,6 +13,10 @@ const getExistingReview = async (id) => {
 	return response;
 };
 
+const getNearestStalls = async (coords) => {
+	const response = await axios.post(baseURL + "/food/nearestStalls", coords, { withCredentials: true });
+	return response;
+};
 const postNewStall = async (body) => {
 	const response = await axios.post(baseURL + "/new", body, {
 		withCredentials: true
@@ -63,7 +67,9 @@ const apiCalls = {
 	checkAuthUser,
 	getOneStall,
 	getExistingReview,
-	updateReview
+	updateReview,
+
+	getNearestStalls
 };
 
 export default apiCalls;

@@ -9,9 +9,7 @@ import apis from "../utils/apiCalls";
 const NewStallForm = () => {
 	//// Using the useSetInputState custom hook
 	const [ stallName, setStallName, handleStallNameChange, resetStallName ] = useSetInputState("");
-
 	const [ cuisine, setCuisine, handleCuisineChange, resetCuisine ] = useSetInputState("");
-
 	const [ image, setImage ] = useState("");
 
 	//// Need to set a special handler for location to get value from autocomplete field
@@ -19,32 +17,6 @@ const NewStallForm = () => {
 	const handleLocationChange = (evt, value) => {
 		setLocation(value);
 	};
-	const [ lat, setLat ] = useState(null);
-	const [ lng, setLng ] = useState(null);
-	const [ status, setStatus ] = useState(null);
-
-	const getLocation = () => {
-		if (!navigator.geolocation) {
-			setStatus("Geolocation is not supported by your browser");
-		} else {
-			setStatus("Locating...");
-			navigator.geolocation.getCurrentPosition(
-				(position) => {
-					setStatus(null);
-					setLat(position.coords.latitude);
-					setLng(position.coords.longitude);
-				},
-				() => {
-					setStatus("Unable to retrieve your location");
-				}
-			);
-		}
-	};
-
-	useEffect(() => {
-		getLocation();
-		console.log(lat, lng);
-	}, []);
 
 	let navigate = useNavigate();
 

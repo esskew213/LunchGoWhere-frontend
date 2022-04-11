@@ -9,6 +9,45 @@ import IndividualCard from "../components/IndividualCard";
 const Home = () => {
 	const [ location, setLocation ] = useState("");
 	const [ recStalls, setRecStalls ] = useState([]);
+	const [ coords, setCoords ] = useState({ x: null, y: null });
+	//**************************//
+	//SECTION FOR GEOLOCATION
+	//**************************//
+	const [ status, setStatus ] = useState(null);
+	const getLocation = async () => {
+		if (!navigator.geolocation) {
+			setStatus("Geolocation is not supported by your browser");
+		} else {
+			setStatus("Locating...");
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					setStatus(null);
+					const coords = { x: position.coords.latitude, y: position.coords.longitude };
+					setCoords(coords);
+				},
+				() => {
+					setStatus("Unable to retrieve your location");
+				}
+			);
+		}
+	};
+
+	useEffect(() => {
+		getLocation();
+	}, []);
+
+	useEffect(
+		() => {
+			const getNearestStalls = async () => {
+				if (coords.x && coords.y) {
+					console.log(coords);
+					const response = await apis.getNearestStalls(coords);
+				}
+			};
+			getNearestStalls();
+		},
+		[ coords ]
+	);
 	const handleLocationChange = (evt, value) => {
 		setLocation(value);
 	};
