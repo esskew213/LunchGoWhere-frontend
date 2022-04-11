@@ -8,6 +8,7 @@ import IndividualCard from "../components/IndividualCard";
 
 const Home = () => {
 	const [ location, setLocation ] = useState("");
+	const [ sortedHawkers, setSortedHawkers ] = useState([]);
 	const [ recStalls, setRecStalls ] = useState([]);
 	const [ coords, setCoords ] = useState({ x: null, y: null });
 	//**************************//
@@ -22,7 +23,7 @@ const Home = () => {
 			navigator.geolocation.getCurrentPosition(
 				(position) => {
 					setStatus(null);
-					const coords = { x: position.coords.latitude, y: position.coords.longitude };
+					const coords = { x: position.coords.longitude, y: position.coords.latitude };
 					setCoords(coords);
 				},
 				() => {
@@ -41,7 +42,13 @@ const Home = () => {
 			const getNearestStalls = async () => {
 				if (coords.x && coords.y) {
 					console.log(coords);
-					const response = await apis.getNearestStalls(coords);
+					await apis
+						.getNearestStalls(coords)
+						.then((res) => {
+							console.log(res.data.sortedHawkers);
+							setSortedHawkers(res.data.sortedHawkers);
+						})
+						.catch((err) => console.log(err));
 				}
 			};
 			getNearestStalls();
@@ -66,7 +73,7 @@ const Home = () => {
 			<Typography variant="h4">SEARCH</Typography>
 			<Box>
 				<form>
-					<AutocompleteLocation handleFieldChange={handleLocationChange} />
+					<AutocompleteLocation sortedHawkers={sortedHawkers} handleFieldChange={handleLocationChange} />
 					<Slider label={"Price Range"} step={5} defaultValue={5} min={0} max={20} />
 					<Slider label={"Wait Time"} step={5} defaultValue={5} min={0} max={30} />
 					<Button color="secondary" type="submit" variant="contained">
