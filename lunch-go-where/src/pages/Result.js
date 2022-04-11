@@ -65,64 +65,80 @@ const Result = () => {
 							{stall.stallName}
 						</Typography>
 						<Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-							<Box sx={{ width: '20vw', minWidth: '250px', maxWidth: '400px', borderRadius: '20px' }}>
+							<Box
+								sx={{
+									width: '20vw',
+									minWidth: '250px',
+									maxWidth: '400px',
+									borderRadius: '20px',
+									mr: '50px'
+								}}
+							>
 								<img
 									src="https://www.visitsingapore.com/content/dam/desktop/global/tourism-editorials/stb/sniffing-out-local-food/2018/signpost-940x940.jpg"
 									alt={stall.stallName}
 									style={{ width: '100%', borderRadius: '2vw' }}
 								/>
+								<List>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<LocationOnIcon />
+										</ListItemIcon>
+										<ListItemText
+											sx={{ fontStyle: 'italic' }}
+											primary={`${stall.location.centerName}`}
+										/>
+									</ListItem>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<RestaurantIcon />
+										</ListItemIcon>
+										<ListItemText sx={{ fontStyle: 'italic' }} primary={`${stall.cuisine} food`} />
+									</ListItem>
+								</List>
 							</Box>
-							<List>
-								<ListItem>
-									<ListItemIcon>
-										<LocationOnIcon />
-									</ListItemIcon>
-									<ListItemText primary={`${stall.location.centerName}`} secondary="location" />
-								</ListItem>
-								<ListItem>
-									<ListItemIcon>
-										<RestaurantIcon />
-									</ListItemIcon>
-									<ListItemText primary={stall.cuisine} secondary="cuisine" />
-								</ListItem>
-								<ListItem>
-									<ListItemIcon>
-										<PaidIcon />
-									</ListItemIcon>
-									<ListItemText primary={`$${stall.calcPrice}`} secondary="average wait time" />
-								</ListItem>
-								<ListItem>
-									<ListItemIcon>
-										<AccessTimeIcon />
-									</ListItemIcon>
-									<ListItemText primary={`${stall.calcWait} min`} secondary="average wait time" />
-								</ListItem>
-							</List>
-							<List>
-								<ListItem>
-									<ListItemIcon>
-										<FavoriteIcon />
-									</ListItemIcon>
-									<ListItemText primary={`${stall.calcWouldEat}%`} secondary="would eat again" />
-								</ListItem>
+							<Box>
+								<List>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<PaidIcon />
+										</ListItemIcon>
+										<ListItemText primary={`$${stall.calcPrice}`} secondary="average wait time" />
+									</ListItem>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<AccessTimeIcon />
+										</ListItemIcon>
+										<ListItemText primary={`${stall.calcWait} min`} secondary="average wait time" />
+									</ListItem>
 
-								<ListItem>
-									<ListItemIcon>
-										<PeopleIcon />
-									</ListItemIcon>
-									<ListItemText primary={`${stall.calcWouldQueue}%`} secondary="would queue again" />
-								</ListItem>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<FavoriteIcon />
+										</ListItemIcon>
+										<ListItemText primary={`${stall.calcWouldEat}%`} secondary="would eat again" />
+									</ListItem>
 
-								<ListItem>
-									<ListItemText
-										primary={
-											<em>
-												`Based on {stall.numReviews} review{stall.numReviews === 1 ? null : 's'}`
-											</em>
-										}
-									/>
-								</ListItem>
-							</List>
+									<ListItem disablePadding>
+										<ListItemIcon>
+											<PeopleIcon />
+										</ListItemIcon>
+										<ListItemText
+											primary={`${stall.calcWouldQueue}%`}
+											secondary="would queue again"
+										/>
+									</ListItem>
+
+									<ListItem disableGutters>
+										<ListItemText
+											sx={{ fontWeight: 'light', fontSize: 16 }}
+											primary={`Based on ${stall.numReviews} review${stall.numReviews === 1
+												? null
+												: 's'}`}
+										/>
+									</ListItem>
+								</List>
+							</Box>
 						</Box>
 					</Box>
 					<ReviewForm
