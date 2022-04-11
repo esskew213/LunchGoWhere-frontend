@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReviewForm from '../components/ReviewForm';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
-import { Typography, Box, List, ListItem, ListItemIcon, ListItemText, Divider } from '@mui/material';
+import { Typography, Box, List, ListItem, ListItemIcon, ListItemText, ListSubheader, Divider } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -97,48 +97,61 @@ const Result = () => {
 									</ListItem>
 								</List>
 							</Box>
-							<Box>
-								<List>
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<PaidIcon />
-										</ListItemIcon>
-										<ListItemText primary={`$${stall.calcPrice}`} secondary="average wait time" />
-									</ListItem>
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<AccessTimeIcon />
-										</ListItemIcon>
-										<ListItemText primary={`${stall.calcWait} min`} secondary="average wait time" />
-									</ListItem>
+							{stall.numReviews ? (
+								<Box>
+									<List>
+										<ListItem disablePadding>
+											<ListItemIcon>
+												<PaidIcon />
+											</ListItemIcon>
+											<ListItemText
+												primary={`$${stall.calcPrice}`}
+												secondary="average wait time"
+											/>
+										</ListItem>
+										<ListItem disablePadding>
+											<ListItemIcon>
+												<AccessTimeIcon />
+											</ListItemIcon>
+											<ListItemText
+												primary={`${stall.calcWait} min`}
+												secondary="average wait time"
+											/>
+										</ListItem>
 
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<FavoriteIcon />
-										</ListItemIcon>
-										<ListItemText primary={`${stall.calcWouldEat}%`} secondary="would eat again" />
-									</ListItem>
+										<ListItem disablePadding>
+											<ListItemIcon>
+												<FavoriteIcon />
+											</ListItemIcon>
+											<ListItemText
+												primary={`${stall.calcWouldEat}%`}
+												secondary="would eat again"
+											/>
+										</ListItem>
 
-									<ListItem disablePadding>
-										<ListItemIcon>
-											<PeopleIcon />
-										</ListItemIcon>
-										<ListItemText
-											primary={`${stall.calcWouldQueue}%`}
-											secondary="would queue again"
-										/>
-									</ListItem>
+										<ListItem disablePadding>
+											<ListItemIcon>
+												<PeopleIcon />
+											</ListItemIcon>
+											<ListItemText
+												primary={`${stall.calcWouldQueue}%`}
+												secondary="would queue again"
+											/>
+										</ListItem>
 
-									<ListItem disableGutters>
-										<ListItemText
-											sx={{ fontWeight: 'light', fontSize: 16 }}
-											primary={`Based on ${stall.numReviews} review${stall.numReviews === 1
-												? null
-												: 's'}`}
-										/>
-									</ListItem>
-								</List>
-							</Box>
+										<ListItem disableGutters>
+											<ListItemText
+												sx={{ fontWeight: 'light', fontSize: 16 }}
+												primary={`Based on ${stall.numReviews} review${stall.numReviews === 1
+													? ''
+													: 's'}`}
+											/>
+										</ListItem>
+									</List>
+								</Box>
+							) : (
+								<Typography>No reviews yet. Add a review!</Typography>
+							)}
 						</Box>
 					</Box>
 					<ReviewForm
