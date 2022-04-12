@@ -10,6 +10,7 @@ import Stack from "@mui/material/Stack";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 import locations from "../hawkerCenters";
+import SearchIcon from "@mui/icons-material/Search";
 
 const Home = () => {
 	const [ sortedHawkers, setSortedHawkers ] = useState(locations);
@@ -121,27 +122,48 @@ const Home = () => {
 	return (
 		<React.Fragment>
 			<ResponsiveAppBar />
-			<Typography sx={{ textAlign: "center", m: "30px" }} variant="h4">
-				SEARCH
-			</Typography>
-			<div
-				style={{
+
+			<Box
+				sx={{
 					display: "flex",
 					flexDirection: "column",
-					alignItems: "center"
+					alignItems: "center",
+					justifyContent: "center",
+					// border: "2px solid black",
+					// borderColor: "secondary.main",
+					boxShadow: "2px 2px 3px rgba(0,0,0, 0.1)",
+					borderRadius: "20px",
+					width: "63vw",
+					mx: "auto",
+					mt: "5vh",
+					py: "3vh",
+					px: "3vh",
+					backgroundColor: "rgba(255, 202, 40, 0.8)"
 				}}
 			>
+				<Typography variant="h4" gutterBottom sx={{ alignSelf: "flex-start" }}>
+					Search for stalls near you
+				</Typography>
 				<form
 					onSubmit={handleSubmit}
 					style={{
 						display: "flex",
-						maxWidth: "63%",
+						flexDirection: "row",
+						justifyContent: "space-between",
+						width: "100%",
 						flexWrap: "wrap"
 					}}
 				>
 					<AutocompleteLocation sortedHawkers={sortedHawkers} handleFieldChange={handleLocationChange} />
-					<Stack spacing={1} direction="row" sx={{ mb: 1 }} alignItems="center">
-						<PaidIcon sx={{ pt: "25px" }} />
+
+					<Stack
+						spacing={1}
+						direction="row"
+						sx={{ minWidth: "200px", mb: "10px" }}
+						justifyContent="flex-start"
+						alignItems="center"
+					>
+						<PaidIcon sx={{ pt: "25px", mr: "10px" }} />
 						<Slider
 							label={"Price Range"}
 							step={5}
@@ -151,8 +173,8 @@ const Home = () => {
 							value={priceRange}
 						/>
 					</Stack>
-					<Stack spacing={1} direction="row" sx={{ mb: 1 }} alignItems="center">
-						<AccessTimeFilledIcon sx={{ pt: "25px" }} />
+					<Stack spacing={1} direction="row" sx={{ minWidth: "200px", mb: "10px" }} alignItems="center">
+						<AccessTimeFilledIcon sx={{ pt: "25px", mr: "10px" }} />
 						<Slider
 							label={"Wait Time"}
 							step={5}
@@ -162,20 +184,35 @@ const Home = () => {
 							value={waitTime}
 						/>
 					</Stack>
-					<Button color="secondary" type="submit" variant="contained" sx={{ height: "50px", ml: "30px" }}>
-						SEARCH
-					</Button>
+					<Stack
+						spacing={1}
+						direction="row"
+						justifyContent="flex-end"
+						alignItems="center"
+						sx={{ mt: "10px" }}
+					>
+						<Button
+							color="secondary"
+							type="submit"
+							variant="contained"
+							sx={{ height: "min-content", backgroundColor: "primary.main", color: "white" }}
+							endIcon={<SearchIcon />}
+						>
+							SEARCH
+						</Button>
+					</Stack>
 				</form>
-			</div>
+			</Box>
 
 			<Box
 				sx={{
 					display: "flex",
 					justifyContent: "space-evenly",
-					flexWrap: "wrap"
+					flexWrap: "wrap",
+					mt: "5vh"
 				}}
 			>
-				{currentStalls ? (
+				{currentStalls.length > 0 ? (
 					currentStalls.map((currentStalls, idKey) => {
 						console.log(currentStalls.img.url);
 						return (
@@ -191,7 +228,9 @@ const Home = () => {
 							</React.Fragment>
 						);
 					})
-				) : null}
+				) : (
+					<Typography variant="h6">No stalls found. Try a different search!</Typography>
+				)}
 			</Box>
 		</React.Fragment>
 	);

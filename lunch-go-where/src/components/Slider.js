@@ -14,7 +14,7 @@ export default function PriceSlider({ label, step, handleChange, min, max }) {
 				marks
 				min={min}
 				max={max}
-				sx={{ maxWidth: "62%" }}
+				sx={{ width: "62%", minWidth: "200px" }}
 				onChange={handleChange}
 			/>
 		</Box>
