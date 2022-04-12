@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useSetInputState from "../hooks/useSetInputState";
+import locations from "../hawkerCenters";
 import {
     FormControl,
     Box,
@@ -29,6 +30,53 @@ const NewStallForm = () => {
     const handleLocationChange = (evt, value) => {
         setLocation(value);
     };
+
+    //**************************//
+    //SECTION FOR GEOLOCATION
+    //**************************//
+    const [coords, setCoords] = useState({ x: null, y: null });
+    const [status, setStatus] = useState(null);
+    const [sortedHawkers, setSortedHawkers] = useState(locations);
+    const getLocation = async () => {
+        if (!navigator.geolocation) {
+            setStatus("Geolocation is not supported by your browser");
+        } else {
+            setStatus("Locating...");
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setStatus(null);
+                    const coords = {
+                        x: position.coords.longitude,
+                        y: position.coords.latitude,
+                    };
+                    setCoords(coords);
+                },
+                () => {
+                    setStatus("Unable to retrieve your location");
+                }
+            );
+        }
+    };
+
+    useEffect(() => {
+        getLocation();
+    }, []);
+
+    useEffect(() => {
+        const getNearestStalls = async () => {
+            if (coords.x && coords.y) {
+                console.log(coords);
+                await apis
+                    .getNearestStalls(coords)
+                    .then((res) => {
+                        console.log(res.data.sortedHawkers);
+                        setSortedHawkers(res.data.sortedHawkers);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        };
+        getNearestStalls();
+    }, [coords]);
 
     let navigate = useNavigate();
     const handleImageChange = (evt) => {
@@ -110,6 +158,7 @@ const NewStallForm = () => {
                         >
                             <AutocompleteLocation
                                 handleFieldChange={handleLocationChange}
+                                sortedHawkers={sortedHawkers}
                             />
                         </FormControl>
                         <FormControl

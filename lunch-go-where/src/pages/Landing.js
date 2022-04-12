@@ -42,7 +42,11 @@ const Landing = () => {
     const handleClose = () => setOpen(false);
 
     const handleUsernameChange = (evt) => {
-        setUsername(evt.target.value);
+        if (evt.target.value.length === 0) {
+            setUsername(evt.target.value);
+        } else if (evt.target.value.length > 0) {
+            setUsername(evt.target.value.trim());
+        }
     };
     const handlePasswordChange = (evt) => {
         setPassword(evt.target.value);

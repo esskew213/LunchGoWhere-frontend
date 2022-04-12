@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import PaidIcon from "@mui/icons-material/Paid";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
+import locations from "../hawkerCenters";
 
 const Home = () => {
-    const [sortedHawkers, setSortedHawkers] = useState([]);
+    const [sortedHawkers, setSortedHawkers] = useState(locations);
     const [location, setLocation] = useState("");
     const [recStalls, setRecStalls] = useState([]);
     const [priceRange, setPriceRange] = useState(5);
@@ -77,6 +78,7 @@ const Home = () => {
     };
 
     useEffect(() => {
+        setSortedHawkers(locations);
         getLocation();
     }, []);
 
