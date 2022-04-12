@@ -29,12 +29,24 @@ const IndividualCard = (props) => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
+                    padding: "30px",
+                    maxHeight: "380px",
                 }}
             >
-                <img src={props.img} alt="Image of stall" />
-                <Typography>Stall name: {props.nameOfStall}</Typography>
-                <Typography>Cuisine: {props.cuisine}</Typography>
-                <Typography>Location: {props.location}</Typography>
+                <img
+                    style={{ width: "300px", height: "250px" }}
+                    src={props.img}
+                    alt="Image of stall"
+                />
+                <Typography sx={{ mt: "10px" }}>
+                    Stall name: {props.nameOfStall}
+                </Typography>
+                <Typography sx={{ mt: "10px" }}>
+                    Cuisine: {props.cuisine}
+                </Typography>
+                <Typography sx={{ mt: "10px" }}>
+                    Location: {props.location}
+                </Typography>
                 <Button
                     onClick={handleClick}
                     endIcon={<ArrowForwardIosIcon />}

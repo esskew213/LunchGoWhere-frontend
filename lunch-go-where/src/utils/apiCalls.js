@@ -51,6 +51,13 @@ const checkAuthUser = async () => {
     return response;
 };
 
+const logoutUser = async () => {
+    const response = await axios.get(baseURL + "/logout", {
+        withCredentials: true,
+    });
+    return response;
+};
+
 const getOneStall = async (id) => {
     console.log(id);
     const response = await axios.get(baseURL + "/food/stall/" + id, {
@@ -84,6 +91,7 @@ const apiCalls = {
     getExistingReview,
     updateReview,
     findStalls,
+    logoutUser,
 };
 
 export default apiCalls;

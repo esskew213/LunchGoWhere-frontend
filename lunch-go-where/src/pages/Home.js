@@ -5,6 +5,7 @@ import AutocompleteLocation from "../components/AutocompleteLocation";
 import Slider from "../components/Slider";
 import apis from "../utils/apiCalls";
 import IndividualCard from "../components/IndividualCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [location, setLocation] = useState("");
@@ -47,6 +48,19 @@ const Home = () => {
         // setInputLocation(true);
     };
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        apis.checkAuthUser()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.response);
+                navigate("/");
+            });
+    }, []);
+
     useEffect(() => {
         apis.getRecommendedStalls()
             .then((data) => {
@@ -58,7 +72,9 @@ const Home = () => {
     return (
         <React.Fragment>
             <ResponsiveAppBar />
-            <Typography variant="h4">SEARCH</Typography>
+            <Typography sx={{ textAlign: "center" }} variant="h4">
+                SEARCH
+            </Typography>
             <Box>
                 <form onSubmit={handleSubmit}>
                     <AutocompleteLocation

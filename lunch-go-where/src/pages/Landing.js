@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import {
-	Typography,
-	TextField,
-	FormControl,
-	InputLabel,
-	Button,
-	InputAdornment,
-	Box,
-	Divider,
-	FormLabel,
-	Modal
+    Typography,
+    TextField,
+    FormControl,
+    InputLabel,
+    Button,
+    InputAdornment,
+    Box,
+    Divider,
+    FormLabel,
+    Modal,
 } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
@@ -100,121 +100,150 @@ const Landing = () => {
 		}
 	};
 
-	return (
-		<div
-			style={{
-				display: "flex"
-			}}
-		>
-			<form onSubmit={handleSubmit}>
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "center",
-						textAlign: "center",
-						justifyContent: "center"
-					}}
-				>
-					<Typography variant="h2">Lunch go where?</Typography>
-					<FormControl variant="standard" required>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Username"
-							type="text"
-							value={username}
-							onChange={handleUsernameChange}
-							required
-							sx={{ mt: "30px" }}
-						/>
-					</FormControl>
-					<FormControl variant="standard" required>
-						<TextField
-							variant="standard"
-							size="small"
-							label="Password"
-							type="password"
-							value={password}
-							onChange={handlePasswordChange}
-							required
-							sx={{ mt: "30px" }}
-						/>
-					</FormControl>
-					<Button endIcon={<ArrowForwardIosIcon />} variant="contained" type="submit" sx={{ mt: "30px" }}>
-						Let's Find Out!
-					</Button>
-					<Typography sx={{ mt: "30px" }}>
-						Don't have an account?
-						<Button onClick={handleOpen}>Sign up now</Button>
-					</Typography>
-				</Box>
-			</form>
-			<Box>
-				<img src="" alt="Landing page img" />
-			</Box>
-			<Modal
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="modal-modal-title"
-				aria-describedby="modal-modal-description"
-			>
-				<form onSubmit={handleSignUpClick}>
-					<Box sx={style}>
-						<Typography id="modal-modal-title" variant="h4" component="h2">
-							Sign Up
-						</Typography>
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Name"
-								variant="standard"
-								value={name}
-								onChange={handleNewNameChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Username"
-								type="text"
-								variant="standard"
-								value={newUsername}
-								onChange={handleNewUsernameChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						<FormControl variant="standard" required>
-							<TextField
-								id="standard-basic"
-								label="Password"
-								type="password"
-								variant="standard"
-								value={newPassword}
-								onChange={handleNewPasswordChange}
-								required
-							/>
-						</FormControl>
-						<br />
-						{showErrorLabel ? (
-							<label>
-								Password is not valid. Please include a letter and a number within your password.
-							</label>
-						) : (
-							""
-						)}
-						<br />
-						<Button variant="contained" type="submit" sx={{ width: "120px", mt: "30px" }}>
-							Register Me!
-						</Button>
-					</Box>
-				</form>
-			</Modal>
-		</div>
-	);
+    return (
+        <div
+            style={{
+                display: "flex",
+                height: "100vh",
+                width: "100vw",
+                alignItems: "center",
+            }}
+        >
+            <form
+                onSubmit={handleSubmit}
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    width: "35%",
+                    padding: "80px",
+                }}
+            >
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Typography variant="h2">Lunch go where?</Typography>
+                    <FormControl variant="standard" required>
+                        <TextField
+                            variant="standard"
+                            size="small"
+                            label="Username"
+                            type="text"
+                            value={username}
+                            onChange={handleUsernameChange}
+                            required
+                            sx={{ mt: "30px" }}
+                        />
+                    </FormControl>
+                    <FormControl variant="standard" required>
+                        <TextField
+                            variant="standard"
+                            size="small"
+                            label="Password"
+                            type="password"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            required
+                            sx={{ mt: "30px" }}
+                        />
+                    </FormControl>
+                </Box>
+                <Button
+                    endIcon={<ArrowForwardIosIcon />}
+                    variant="contained"
+                    type="submit"
+                    sx={{ mt: "30px" }}
+                >
+                    Let's Find Out!
+                </Button>
+                <Typography sx={{ mt: "30px" }}>
+                    Don't have an account?
+                    <Button onClick={handleOpen}>Sign up now</Button>
+                </Typography>
+            </form>
+            <Box>
+                <img
+                    style={{
+                        objectFit: "cover",
+                        height: "100vh",
+                        width: "100vw",
+                        maxHeight: "100%",
+                        maxWidth: "100%",
+                    }}
+                    src="https://www.foodnavigator-usa.com/var/wrbm_gb_food_pharma/storage/images/_aliases/wrbm_large/publications/food-beverage-nutrition/foodnavigator-usa.com/article/2020/06/23/untapped-market-potential-found-in-big-gap-between-consumers-seeking-using-functional-foods/11514857-1-eng-GB/Untapped-market-potential-found-in-big-gap-between-consumers-seeking-using-functional-foods.jpg"
+                    alt="Landing page img"
+                />
+            </Box>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <form onSubmit={handleSignUpClick}>
+                    <Box sx={style}>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h4"
+                            component="h2"
+                        >
+                            Sign Up
+                        </Typography>
+                        <FormControl variant="standard" required>
+                            <TextField
+                                id="standard-basic"
+                                label="Name"
+                                variant="standard"
+                                value={name}
+                                onChange={handleNewNameChange}
+                                required
+                            />
+                        </FormControl>
+                        <br />
+                        <FormControl variant="standard" required>
+                            <TextField
+                                id="standard-basic"
+                                label="Username"
+                                type="text"
+                                variant="standard"
+                                value={newUsername}
+                                onChange={handleNewUsernameChange}
+                                required
+                            />
+                        </FormControl>
+                        <br />
+                        <FormControl variant="standard" required>
+                            <TextField
+                                id="standard-basic"
+                                label="Password"
+                                type="password"
+                                variant="standard"
+                                value={newPassword}
+                                onChange={handleNewPasswordChange}
+                                required
+                            />
+                        </FormControl>
+                        <br />
+                        {showErrorLabel ? (
+                            <label>
+                                Password is not valid. Please include a letter
+                                and a number within your password.
+                            </label>
+                        ) : (
+                            ""
+                        )}
+                        <br />
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            sx={{ width: "120px", mt: "30px" }}
+                        >
+                            Register Me!
+                        </Button>
+                    </Box>
+                </form>
+            </Modal>
+        </div>
+    );
+
 };
 
 export default Landing;

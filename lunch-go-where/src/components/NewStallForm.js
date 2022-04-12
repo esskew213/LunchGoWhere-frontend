@@ -40,23 +40,23 @@ const NewStallForm = () => {
 			);
 		}
 	};
+  
+    useEffect(() => {
+        getLocation();
+        console.log(lat, lng);
+    }, []);
 
-	useEffect(() => {
-		getLocation();
-		console.log(lat, lng);
-	}, []);
+    let navigate = useNavigate();
 
-	let navigate = useNavigate();
-
-	const handleImageChange = (evt) => {
-		const img = {
-			preview: URL.createObjectURL(evt.target.files[0]),
-			data: evt.target.files[0]
-		};
-		setImage(img);
-		console.log(img);
-	};
-
+    const handleImageChange = (evt) => {
+        const img = {
+            preview: URL.createObjectURL(evt.target.files[0]),
+            data: evt.target.files[0],
+        };
+        setImage(img);
+        console.log(img);
+    };
+  
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		let formData = new FormData();
