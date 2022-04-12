@@ -8,7 +8,7 @@ export default function ComboBox({ sortedHawkers, handleFieldChange }) {
 			disablePortal
 			options={sortedHawkers}
 			sx={{ width: "100%", mr: "30px", mb: "20px" }}
-			renderInput={(params) => <TextField {...params} label="Locations" variant="filled" required fullWidth />}
+			renderInput={(params) => <TextField {...params} label="Location" required fullWidth />}
 		/>
 	);
 }
