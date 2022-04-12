@@ -122,21 +122,23 @@ const Home = () => {
                               </React.Fragment>
                           );
                       })
-                    : recStalls.map((stall) => {
+                    : recStalls
+                    ? recStalls.map((stall, idKey) => {
                           // console.log(stall.stallName);
                           return (
-                              <React.Fragment>
+                              <React.Fragment key={idKey}>
                                   <IndividualCard
-                                      img={stall.img}
+                                      img={stall.img.url}
                                       id={stall._id}
                                       nameOfStall={stall.stallName}
                                       cuisine={stall.cuisine}
-                                      location={stall.location}
+                                      location={stall.location.centerName}
                                   />
                                   {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
                               </React.Fragment>
                           );
-                      })}
+                      })
+                    : null}
             </Box>
         </React.Fragment>
     );
