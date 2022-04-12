@@ -20,12 +20,20 @@ const NewStallForm = () => {
 
 	let navigate = useNavigate();
 	const handleImageChange = (evt) => {
-		const img = {
-			preview: URL.createObjectURL(evt.target.files[0]),
-			data: evt.target.files[0]
-		};
-		setImage(img);
-		console.log(img);
+		console.log(evt);
+		if (evt.target.files.length === 1) {
+			const img = {
+				preview: URL.createObjectURL(evt.target.files[0]),
+				data: evt.target.files[0]
+			};
+			setImage(img);
+			console.log(img);
+		} else {
+			setImage({
+				preview: "",
+				data: ""
+			});
+		}
 	};
 
 	const handleSubmit = (evt) => {
