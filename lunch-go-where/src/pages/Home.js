@@ -10,6 +10,44 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
     const [location, setLocation] = useState("");
     const [recStalls, setRecStalls] = useState([]);
+    const [priceRange, setPriceRange] = useState(5);
+    const [waitTime, setWaitTime] = useState(5);
+    const [triggeredAPI, setTriggeredAPI] = useState(false);
+    const [currentStalls, setCurrentStalls] = useState([]);
+
+    const handleLocationChange = (evt, value) => {
+        // evt.preventDefault();
+        // console.log(value);
+        setLocation(value);
+    };
+
+    const handlePriceChange = (evt) => {
+        // evt.preventDefault();
+        // console.log(evt.target.value);
+        setPriceRange(parseInt(evt.target.value));
+    };
+
+    const handleTimeChange = (evt) => {
+        // evt.preventDefault();
+        // console.log(value);
+        setWaitTime(parseInt(evt.target.value));
+    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // setLocation(event);
+        const response = await apis.findStalls({
+            centerName: location,
+            priceRange: priceRange,
+            waitTime: waitTime,
+        });
+        setTriggeredAPI(true);
+        // console.log(value);
+        // console.log(response);
+        setCurrentStalls(response.data);
+        // console.log(response.data);
+        // setInputLocation(true);
+    };
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,9 +61,6 @@ const Home = () => {
             });
     }, []);
 
-    const handleLocationChange = (evt, value) => {
-        setLocation(value);
-    };
     useEffect(() => {
         apis.getRecommendedStalls()
             .then((data) => {
@@ -41,7 +76,7 @@ const Home = () => {
                 SEARCH
             </Typography>
             <Box>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <AutocompleteLocation
                         handleFieldChange={handleLocationChange}
                     />
@@ -51,6 +86,8 @@ const Home = () => {
                         defaultValue={5}
                         min={0}
                         max={20}
+                        value={priceRange}
+                        handleChange={handlePriceChange}
                     />
                     <Slider
                         label={"Wait Time"}
@@ -58,6 +95,8 @@ const Home = () => {
                         defaultValue={5}
                         min={0}
                         max={30}
+                        handleChange={handleTimeChange}
+                        value={waitTime}
                     />
                     <Button color="secondary" type="submit" variant="contained">
                         SEARCH
@@ -65,9 +104,27 @@ const Home = () => {
                 </form>
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-                {recStalls
+                {triggeredAPI
+                    ? currentStalls.map((currentStalls) => {
+                          console.log(currentStalls.img.url);
+                          return (
+                              <React.Fragment>
+                                  <IndividualCard
+                                      img={currentStalls.img.url}
+                                      id={currentStalls._id}
+                                      nameOfStall={currentStalls.stallName}
+                                      cuisine={currentStalls.cuisine}
+                                      location={
+                                          currentStalls.location.centerName
+                                      }
+                                  />
+                                  {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
+                              </React.Fragment>
+                          );
+                      })
+                    : recStalls
                     ? recStalls.map((stall, idKey) => {
-                          console.log(stall.img.url);
+                          // console.log(stall.stallName);
                           return (
                               <React.Fragment key={idKey}>
                                   <IndividualCard
