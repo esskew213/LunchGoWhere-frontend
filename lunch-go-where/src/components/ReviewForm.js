@@ -7,10 +7,22 @@ import apis from "../utils/apiCalls";
 
 const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
-	const [ price, setPrice, handlePriceChange, resetPrice ] = useSetInputState(0);
-	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(0);
+	const [ price, setPrice ] = useState(1);
+	const [ waitTime, setWaitTime ] = useState(0);
 	const [ wouldEatAgain, setWouldEat ] = useSetInputState(false);
 	const [ wouldQueueAgain, setWouldQueue ] = useSetInputState(false);
+	const [ priceError, setPriceError ] = useState(false);
+	const [ waitTimeError, setWaitTimeError ] = useState(false);
+
+	const regex = new RegExp("/^[1-9][0-9]*$/");
+	const handlePriceChange = (evt) => {
+		setPriceError(false);
+		setPrice(evt.target.value);
+	};
+	const handleWaitTimeChange = (evt) => {
+		setWaitTimeError(false);
+		setWaitTime(evt.target.value);
+	};
 	const handleWouldEatChange = (evt) => {
 		setWouldEat((prevState) => !prevState);
 	};
@@ -20,16 +32,21 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		console.log(price, waitTime, wouldEatAgain, wouldQueueAgain, stallID);
-		if (hasReviewedBefore) {
-			apis.updateReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+		if (!regex.test(price) || !regex.test(waitTime)) {
+			setPriceError(!regex.test(price));
+			setWaitTimeError(!regex.test(waitTime));
 		} else {
-			apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+			if (hasReviewedBefore) {
+				apis.updateReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+			} else {
+				apis.postNewReview({ price, waitTime, wouldEatAgain, wouldQueueAgain, stallID });
+			}
+			setPrice(1);
+			setWaitTime(0);
+			setWouldEat(false);
+			setWouldQueue(false);
+			setReviewSubmitted(true);
 		}
-		resetPrice();
-		resetWaitTime();
-		setWouldEat(false);
-		setWouldQueue(false);
-		setReviewSubmitted(true);
 	};
 	const handleDeleteClick = (evt) => {
 		console.log("deleting");
@@ -91,28 +108,40 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 						<FormControl fullWidth margin="normal" variant="standard" required>
 							<TextField
+								error={priceError}
 								fullWidth
 								variant="standard"
 								size="small"
 								label="Price"
 								type="number"
+								inputProps={{ min: 1, inputMode: "numeric", pattern: "^[1-9][0-9]*$" }}
 								value={price}
 								onChange={handlePriceChange}
 								required
-								helperText="Around how much did you spend?"
+								helperText={
+									priceError ? "Please enter a valid number." : "Around how much did you spend?"
+								}
 							/>
 						</FormControl>
 						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
 							<TextField
+								error={waitTimeError}
 								fullWidth
 								variant="standard"
 								size="small"
 								label="Wait Time"
 								type="number"
+								inputProps={{ min: 0, inputMode: "numeric", pattern: "^[1-9][0-9]*$" }}
 								value={waitTime}
 								onChange={handleWaitTimeChange}
 								required
-								helperText="How long did it take to get your food?"
+								helperText={
+									waitTimeError ? (
+										"Please enter a valid number."
+									) : (
+										"How long did it take to get your food?"
+									)
+								}
 							/>
 						</FormControl>
 						<FormGroup>
