@@ -6,6 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import PersonIcon from "@mui/icons-material/Person";
 import PeopleIcon from "@mui/icons-material/People";
 import PaidIcon from "@mui/icons-material/Paid";
 import apis from "../utils/apiCalls";
@@ -22,7 +23,8 @@ const Result = () => {
 		calcPrice: "",
 		calcWait: "",
 		calcWouldEat: "",
-		calcWouldQueue: ""
+		calcWouldQueue: "",
+		author: ""
 	});
 	const [ reviewSubmitted, setReviewSubmitted ] = useState(false);
 	const [ errMessage, setErrMessage ] = useState(null);
@@ -102,7 +104,7 @@ const Result = () => {
 									sx={{
 										width: "20vw",
 										minWidth: "300px",
-										mr: "50px",
+										mr: "30px",
 										maxWidth: "500px"
 									}}
 								>
@@ -128,6 +130,15 @@ const Result = () => {
 											<ListItemText
 												sx={{ fontStyle: "italic" }}
 												primary={`${stall.cuisine} food`}
+											/>
+										</ListItem>
+										<ListItem disablePadding>
+											<ListItemIcon>
+												<PersonIcon />
+											</ListItemIcon>
+											<ListItemText
+												sx={{ fontStyle: "italic" }}
+												primary={`Contributed by ${stall.author.username}`}
 											/>
 										</ListItem>
 									</List>

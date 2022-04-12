@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useSetInputState from "../hooks/useSetInputState";
 import { Typography, TextField, FormControl, Button, Box, FormControlLabel, FormGroup, Switch } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import apis from "../utils/apiCalls";
 
 const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
@@ -80,7 +81,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 				maxWidth: "400px",
 				backgroundColor: "secondary.light",
 				borderRadius: "20px",
-				p: "20px",
+				py: "20px",
 				boxSizing: "border-box"
 			}}
 		>
@@ -88,7 +89,7 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 				<Typography variant="h6">Your review</Typography>
 				<form onSubmit={handleSubmit}>
 					<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-						<FormControl fullWidth margin="normal" variant="standard" required sx={{ mr: "2vw" }}>
+						<FormControl fullWidth margin="normal" variant="standard" required>
 							<TextField
 								fullWidth
 								variant="standard"
@@ -125,25 +126,36 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 								label="Would queue again"
 							/>
 						</FormGroup>
-
-						<Button
-							endIcon={<ArrowForwardIosIcon />}
-							variant="contained"
-							type="submit"
-							sx={{ mt: "30px", width: "min-content", alignSelf: "flex-end" }}
+						<Box
+							sx={{
+								display: "flex",
+								flexDirection: "row",
+								alignItems: "center",
+								justifyContent: "space-between",
+								width: "100%"
+							}}
 						>
-							{hasReviewedBefore ? "UPDATE" : "SUBMIT"}
-						</Button>
-						{hasReviewedBefore ? (
 							<Button
 								endIcon={<ArrowForwardIosIcon />}
-								variant="outlined"
-								onClick={handleDeleteClick}
-								sx={{ mt: "30px", width: "min-content", alignSelf: "flex-end" }}
+								variant="contained"
+								type="submit"
+								fullWidth
+								sx={{ mt: "10px", width: "min-content", justifySelf: "flex-end" }}
 							>
-								DELETE
+								{hasReviewedBefore ? "UPDATE" : "SUBMIT"}
 							</Button>
-						) : null}
+							{hasReviewedBefore ? (
+								<Button
+									fullWidth
+									endIcon={<DeleteOutlineIcon />}
+									variant="outlined"
+									onClick={handleDeleteClick}
+									sx={{ mt: "10px", width: "min-content" }}
+								>
+									DELETE
+								</Button>
+							) : null}
+						</Box>
 					</Box>
 				</form>
 			</Box>
