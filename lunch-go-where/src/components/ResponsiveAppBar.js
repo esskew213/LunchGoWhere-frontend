@@ -7,9 +7,7 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -94,7 +92,7 @@ const ResponsiveAppBar = () => {
                                     <Link
                                         style={{
                                             textDecoration: "none",
-                                            colour: "white",
+                                            color: "black",
                                         }}
                                         to={`/${page}`}
                                     >
@@ -130,7 +128,7 @@ const ResponsiveAppBar = () => {
                                 <Link
                                     style={{
                                         textDecoration: "none",
-                                        colour: "white",
+                                        color: "white",
                                     }}
                                     to={`/${page}`}
                                 >
