@@ -9,8 +9,8 @@ import IndividualCard from "../components/IndividualCard";
 const Home = () => {
     const [location, setLocation] = useState("");
     const [recStalls, setRecStalls] = useState([]);
-    const [priceRange, setPriceRange] = useState("5");
-    const [waitTime, setWaitTime] = useState("5");
+    const [priceRange, setPriceRange] = useState(5);
+    const [waitTime, setWaitTime] = useState(5);
     const [triggeredAPI, setTriggeredAPI] = useState(false);
     const [currentStalls, setCurrentStalls] = useState([]);
 
@@ -23,13 +23,13 @@ const Home = () => {
     const handlePriceChange = (evt) => {
         // evt.preventDefault();
         // console.log(evt.target.value);
-        setPriceRange(evt.target.value);
+        setPriceRange(parseInt(evt.target.value));
     };
 
-    const handleTimeChange = (evt, value) => {
+    const handleTimeChange = (evt) => {
         // evt.preventDefault();
         // console.log(value);
-        setWaitTime(value);
+        setWaitTime(parseInt(evt.target.value));
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -70,7 +70,7 @@ const Home = () => {
                         defaultValue={5}
                         min={0}
                         max={20}
-                        value={parseInt(priceRange)}
+                        value={priceRange}
                         handleChange={handlePriceChange}
                     />
                     <Slider
@@ -80,7 +80,7 @@ const Home = () => {
                         min={0}
                         max={30}
                         handleChange={handleTimeChange}
-                        value={parseInt(waitTime)}
+                        value={waitTime}
                     />
                     <Button color="secondary" type="submit" variant="contained">
                         SEARCH
