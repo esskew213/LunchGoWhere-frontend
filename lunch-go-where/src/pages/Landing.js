@@ -17,88 +17,88 @@ import apis from "../utils/apiCalls";
 import { useNavigate } from "react-router-dom";
 
 const style = {
-	position: "absolute",
-	top: "50%",
-	left: "50%",
-	transform: "translate(-50%, -50%)",
-	width: 400,
-	bgcolor: "background.paper",
-	boxShadow: 24,
-	p: 4,
-	textAlign: "center"
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+    textAlign: "center",
 };
 
 const Landing = () => {
-	const [ username, setUsername ] = useState("");
-	const [ password, setPassword ] = useState("");
-	const [ name, setName ] = useState("");
-	const [ newUsername, setNewUsername ] = useState("");
-	const [ newPassword, setNewPassword ] = useState("");
-	const [ isValid, setIsValid ] = useState(false);
-	const [ showErrorLabel, setShowErrorLabel ] = useState(false);
-	const navigate = useNavigate();
-	const [ open, setOpen ] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [newUsername, setNewUsername] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const [showErrorLabel, setShowErrorLabel] = useState(false);
+    const navigate = useNavigate();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
-	const handleUsernameChange = (evt) => {
-		setUsername(evt.target.value);
-	};
-	const handlePasswordChange = (evt) => {
-		setPassword(evt.target.value);
-	};
-	const handleNewNameChange = (evt) => {
-		setName(evt.target.value);
-	};
-	const handleNewUsernameChange = (evt) => {
-		setNewUsername(evt.target.value);
-	};
-	const handleNewPasswordChange = (evt) => {
-		const testPassword = evt.target.value;
-		const condition = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-		const test = condition.test(testPassword);
-		if (test) {
-			setNewPassword(testPassword);
-			setIsValid(true);
-		} else {
-			console.log("Password Fail");
-		}
-		setNewPassword(testPassword);
-	};
-	const handleSubmit = async (evt) => {
-		evt.preventDefault();
-		console.log("SUBMITTING", username, password);
-		try {
-			await apis.login({ username: username, password: password });
-			setUsername("");
-			setPassword("");
-			navigate("/home");
-		} catch (err) {
-			console.log(err);
-		}
-	};
+    const handleUsernameChange = (evt) => {
+        setUsername(evt.target.value);
+    };
+    const handlePasswordChange = (evt) => {
+        setPassword(evt.target.value);
+    };
+    const handleNewNameChange = (evt) => {
+        setName(evt.target.value);
+    };
+    const handleNewUsernameChange = (evt) => {
+        setNewUsername(evt.target.value);
+    };
+    const handleNewPasswordChange = (evt) => {
+        const testPassword = evt.target.value;
+        const condition = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const test = condition.test(testPassword);
+        if (test) {
+            setNewPassword(testPassword);
+            setIsValid(true);
+        } else {
+            console.log("Password Fail");
+        }
+        setNewPassword(testPassword);
+    };
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+        console.log("SUBMITTING", username, password);
+        try {
+            await apis.login({ username: username, password: password });
+            setUsername("");
+            setPassword("");
+            navigate("/home");
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-	const handleSignUpClick = async (evt) => {
-		evt.preventDefault();
-		if (isValid !== true) {
-			console.log(showErrorLabel);
-			setShowErrorLabel(true);
-		} else {
-			try {
-				await apis.postSignUp({
-					name: name,
-					username: newUsername,
-					password: newPassword
-				});
-				setName("");
-				setNewUsername("");
-				setNewPassword("");
-				navigate("/home");
-			} catch (err) {
-				console.log(err);
-			}
-		}
-	};
+    const handleSignUpClick = async (evt) => {
+        evt.preventDefault();
+        if (isValid !== true) {
+            console.log(showErrorLabel);
+            setShowErrorLabel(true);
+        } else {
+            try {
+                await apis.postSignUp({
+                    name: name,
+                    username: newUsername,
+                    password: newPassword,
+                });
+                setName("");
+                setNewUsername("");
+                setNewPassword("");
+                navigate("/home");
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    };
 
     return (
         <div
@@ -115,7 +115,7 @@ const Landing = () => {
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
-                    width: "35%",
+                    width: "30%",
                     padding: "80px",
                 }}
             >
@@ -243,7 +243,6 @@ const Landing = () => {
             </Modal>
         </div>
     );
-
 };
 
 export default Landing;

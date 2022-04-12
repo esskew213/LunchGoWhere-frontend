@@ -30,7 +30,10 @@ const IndividualCard = (props) => {
                     flexDirection: "column",
                     alignItems: "center",
                     padding: "30px",
-                    maxHeight: "380px",
+                    minHeight: "400px",
+                    minWidth: "300px",
+                    flexWrap: "wrap",
+                    m: "30px",
                 }}
             >
                 <img
