@@ -19,7 +19,6 @@ const NewStallForm = () => {
 	};
 
 	let navigate = useNavigate();
-
 	const handleImageChange = (evt) => {
 		const img = {
 			preview: URL.createObjectURL(evt.target.files[0]),

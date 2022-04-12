@@ -9,7 +9,9 @@ const login = async (body) => {
 };
 
 const getExistingReview = async (id) => {
-	const response = await axios.get(baseURL + "/review/" + id, { withCredentials: true });
+	const response = await axios.get(baseURL + "/review/" + id, {
+		withCredentials: true
+	});
 	return response;
 };
 
@@ -27,6 +29,10 @@ const postNewStall = async (body) => {
 
 const postNewReview = async (body) => {
 	await axios.post(baseURL + "/review", body, { withCredentials: true });
+};
+
+const deleteReview = async (id) => {
+	await axios.delete(baseURL + "/review/" + id, { withCredentials: true });
 };
 
 const updateReview = async (body) => {
@@ -53,11 +59,35 @@ const checkAuthUser = async () => {
 	return response;
 };
 
-const getOneStall = async (id) => {
-	console.log(id);
-	const response = await axios.get(baseURL + "/food/stall/" + id, { withCredentials: true });
+const logoutUser = async () => {
+	const response = await axios.get(baseURL + "/logout", {
+		withCredentials: true
+	});
 	return response;
 };
+
+const getOneStall = async (id) => {
+	console.log(id);
+	const response = await axios.get(baseURL + "/food/stall/" + id, {
+		withCredentials: true
+	});
+	return response;
+};
+
+const findStalls = async (body) => {
+	console.log(body);
+	const response = await axios.post(
+		// baseURL + `/hawkercenter/${body.centerName}`,
+		baseURL + "/search",
+		body,
+		{
+			withCredentials: true
+		}
+	);
+	console.log(response);
+	return response;
+};
+
 const apiCalls = {
 	postNewStall,
 	postNewReview,
@@ -68,7 +98,9 @@ const apiCalls = {
 	getOneStall,
 	getExistingReview,
 	updateReview,
-
+	findStalls,
+	logoutUser,
+	deleteReview,
 	getNearestStalls
 };
 
