@@ -7,7 +7,7 @@ import apis from "../utils/apiCalls";
 const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 	const [ hasReviewedBefore, setHasReviewedBefore ] = useState(false);
 	const [ price, setPrice, handlePriceChange, resetPrice ] = useSetInputState(0);
-	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(5);
+	const [ waitTime, setWaitTime, handleWaitTimeChange, resetWaitTime ] = useSetInputState(0);
 	const [ wouldEatAgain, setWouldEat ] = useSetInputState(false);
 	const [ wouldQueueAgain, setWouldQueue ] = useSetInputState(false);
 	const handleWouldEatChange = (evt) => {
@@ -30,6 +30,16 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 		setWouldQueue(false);
 		setReviewSubmitted(true);
 	};
+	const handleDeleteClick = (evt) => {
+		console.log("deleting");
+		apis
+			.deleteReview(stallID)
+			.then((res) => {
+				console.log(res);
+				setReviewSubmitted(true);
+			})
+			.catch((err) => console.log(err));
+	};
 	useEffect(
 		() => {
 			apis
@@ -46,6 +56,11 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 						setHasReviewedBefore(true);
 					} else {
 						console.log("No previous review detected.");
+						setPrice(0);
+						setWaitTime(0);
+						setWouldEat(false);
+						setWouldQueue(false);
+						setHasReviewedBefore(false);
 					}
 				})
 				.catch((err) => {
@@ -119,6 +134,16 @@ const ReviewForm = ({ stallID, setReviewSubmitted, reviewSubmitted }) => {
 						>
 							{hasReviewedBefore ? "UPDATE" : "SUBMIT"}
 						</Button>
+						{hasReviewedBefore ? (
+							<Button
+								endIcon={<ArrowForwardIosIcon />}
+								variant="outlined"
+								onClick={handleDeleteClick}
+								sx={{ mt: "30px", width: "min-content", alignSelf: "flex-end" }}
+							>
+								DELETE
+							</Button>
+						) : null}
 					</Box>
 				</form>
 			</Box>
