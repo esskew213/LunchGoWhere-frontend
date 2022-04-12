@@ -47,10 +47,17 @@ const postSignUp = async (body) => {
 };
 
 const checkAuthUser = async () => {
-	const response = await axios.get(baseURL, {
-		withCredentials: true
-	});
-	return response;
+    const response = await axios.get(baseURL, {
+        withCredentials: true,
+    });
+    return response;
+};
+
+const logoutUser = async () => {
+    const response = await axios.get(baseURL + '/logout', {
+        withCredentials: true,
+    });
+    return response;
 };
 
 const getOneStall = async (id) => {
@@ -69,6 +76,7 @@ const apiCalls = {
 	getExistingReview,
 	updateReview,
 	deleteReview
+    logoutUser,
 };
 
 export default apiCalls;
