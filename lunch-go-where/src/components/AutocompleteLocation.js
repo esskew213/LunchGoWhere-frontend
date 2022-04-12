@@ -15,7 +15,6 @@ export default function ComboBox({ handleFieldChange }) {
     );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const locations = [
     "Adam Road Food Centre",
     "Amoy Street Food Centre",

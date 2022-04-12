@@ -11,10 +11,90 @@ import PaidIcon from "@mui/icons-material/Paid";
 import AccessTimeFilledIcon from "@mui/icons-material/AccessTimeFilled";
 
 const Home = () => {
+    const [sortedHawkers, setSortedHawkers] = useState([]);
     const [location, setLocation] = useState("");
     const [recStalls, setRecStalls] = useState([]);
+    const [priceRange, setPriceRange] = useState(5);
+    const [waitTime, setWaitTime] = useState(5);
+    const [triggeredAPI, setTriggeredAPI] = useState(false);
+    const [currentStalls, setCurrentStalls] = useState([]);
     const navigate = useNavigate();
+    const handleLocationChange = (evt, value) => {
+        // evt.preventDefault();
+        // console.log(value);
+        setLocation(value);
+    };
+    const handlePriceChange = (evt) => {
+        // evt.preventDefault();
+        // console.log(evt.target.value);
+        setPriceRange(parseInt(evt.target.value));
+    };
+    const handleTimeChange = (evt) => {
+        // evt.preventDefault();
+        // console.log(value);
+        setWaitTime(parseInt(evt.target.value));
+    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // setLocation(event);
+        const response = await apis.findStalls({
+            centerName: location,
+            priceRange: priceRange,
+            waitTime: waitTime,
+        });
+        setTriggeredAPI(true);
+        // console.log(value);
+        // console.log(response);
+        setCurrentStalls(response.data);
+        // console.log(response.data);
+        // setInputLocation(true);
+    };
 
+    //**************************//
+    //SECTION FOR GEOLOCATION
+    //**************************//
+    const [coords, setCoords] = useState({ x: null, y: null });
+    const [status, setStatus] = useState(null);
+    const getLocation = async () => {
+        if (!navigator.geolocation) {
+            setStatus("Geolocation is not supported by your browser");
+        } else {
+            setStatus("Locating...");
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setStatus(null);
+                    const coords = {
+                        x: position.coords.longitude,
+                        y: position.coords.latitude,
+                    };
+                    setCoords(coords);
+                },
+                () => {
+                    setStatus("Unable to retrieve your location");
+                }
+            );
+        }
+    };
+
+    useEffect(() => {
+        getLocation();
+    }, []);
+
+    useEffect(() => {
+        const getNearestStalls = async () => {
+            if (coords.x && coords.y) {
+                console.log(coords);
+                await apis
+                    .getNearestStalls(coords)
+                    .then((res) => {
+                        console.log(res.data.sortedHawkers);
+                        setSortedHawkers(res.data.sortedHawkers);
+                    })
+                    .catch((err) => console.log(err));
+            }
+        };
+        getNearestStalls();
+    }, [coords]);
     useEffect(() => {
         apis.checkAuthUser()
             .then((res) => {
@@ -26,9 +106,6 @@ const Home = () => {
             });
     }, []);
 
-    const handleLocationChange = (evt, value) => {
-        setLocation(value);
-    };
     useEffect(() => {
         apis.getRecommendedStalls()
             .then((data) => {
@@ -51,6 +128,7 @@ const Home = () => {
                 }}
             >
                 <form
+                    onSubmit={handleSubmit}
                     style={{
                         display: "flex",
                         maxWidth: "63%",
@@ -58,6 +136,7 @@ const Home = () => {
                     }}
                 >
                     <AutocompleteLocation
+                        sortedHawkers={sortedHawkers}
                         handleFieldChange={handleLocationChange}
                     />
                     <Stack
@@ -73,6 +152,8 @@ const Home = () => {
                             defaultValue={5}
                             min={0}
                             max={20}
+                            handleChange={handlePriceChange}
+                            value={priceRange}
                         />
                     </Stack>
                     <Stack
@@ -88,6 +169,8 @@ const Home = () => {
                             defaultValue={5}
                             min={0}
                             max={30}
+                            handleChange={handleTimeChange}
+                            value={waitTime}
                         />
                     </Stack>
                     <Button
@@ -100,6 +183,7 @@ const Home = () => {
                     </Button>
                 </form>
             </div>
+
             <Box
                 sx={{
                     display: "flex",
@@ -107,9 +191,28 @@ const Home = () => {
                     flexWrap: "wrap",
                 }}
             >
-                {recStalls
+                {" "}
+                {triggeredAPI
+                    ? currentStalls.map((currentStalls, idKey) => {
+                          console.log(currentStalls.img.url);
+                          return (
+                              <React.Fragment key={idKey}>
+                                  <IndividualCard
+                                      img={currentStalls.img.url}
+                                      id={currentStalls._id}
+                                      nameOfStall={currentStalls.stallName}
+                                      cuisine={currentStalls.cuisine}
+                                      location={
+                                          currentStalls.location.centerName
+                                      }
+                                  />
+                                  {/* <Typography>Submitted by: {stall.author.name}</Typography> */}
+                              </React.Fragment>
+                          );
+                      })
+                    : recStalls
                     ? recStalls.map((stall, idKey) => {
-                          console.log(stall.img.url);
+                          // console.log(stall.stallName);
                           return (
                               <React.Fragment key={idKey}>
                                   <IndividualCard
