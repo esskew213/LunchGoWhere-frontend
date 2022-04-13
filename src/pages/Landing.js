@@ -61,13 +61,25 @@ const Landing = () => {
 		}
 	};
 	const handlePasswordChange = (evt) => {
-		setPassword(evt.target.value);
+		if (evt.target.value.length === 0) {
+			setPassword(evt.target.value);
+		} else if (evt.target.value.length > 0) {
+			setPassword(evt.target.value.trim());
+		}
 	};
 	const handleNewNameChange = (evt) => {
-		setName(evt.target.value);
+		if (evt.target.value.length === 0) {
+			setName(evt.target.value);
+		} else if (evt.target.value.length > 0) {
+			setName(evt.target.value.trim());
+		}
 	};
 	const handleNewUsernameChange = (evt) => {
-		setNewUsername(evt.target.value);
+		if (evt.target.value.length === 0) {
+			setNewUsername(evt.target.value);
+		} else if (evt.target.value.length > 0) {
+			setNewUsername(evt.target.value.trim());
+		}
 	};
 	const handleNewPasswordChange = (evt) => {
 		const testPassword = evt.target.value;
