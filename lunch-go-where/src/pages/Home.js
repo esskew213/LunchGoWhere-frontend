@@ -112,8 +112,8 @@ const Home = () => {
 			});
 		apis
 			.getRecommendedStalls()
-			.then((data) => {
-				setCurrentStalls(data);
+			.then((res) => {
+				setCurrentStalls(res.data.stalls);
 				// console.log('RETURNING ', data);
 			})
 			.catch((err) => console.error(err));
@@ -168,7 +168,7 @@ const Home = () => {
 							label={"Price Range"}
 							step={5}
 							min={0}
-							max={20}
+							max={50}
 							handleChange={handlePriceChange}
 							value={priceRange}
 						/>
@@ -179,7 +179,7 @@ const Home = () => {
 							label={"Wait Time"}
 							step={5}
 							min={0}
-							max={30}
+							max={50}
 							handleChange={handleTimeChange}
 							value={waitTime}
 						/>
@@ -206,31 +206,47 @@ const Home = () => {
 
 			<Box
 				sx={{
+					mt: "5vh",
+					width: "90vw",
 					display: "flex",
-					justifyContent: "space-evenly",
-					flexWrap: "wrap",
-					mt: "5vh"
+					flexDirection: "column",
+					// alignItems: "center"
+
+					mx: "auto"
 				}}
 			>
-				{currentStalls.length > 0 ? (
-					currentStalls.map((currentStalls, idKey) => {
-						console.log(currentStalls.img.url);
-						return (
-							<React.Fragment key={idKey}>
-								<IndividualCard
-									img={currentStalls.img.url}
-									id={currentStalls._id}
-									nameOfStall={currentStalls.stallName}
-									cuisine={currentStalls.cuisine}
-									location={currentStalls.location.centerName}
-								/>
-								{/* <Typography>Submitted by: {stall.author.name}</Typography> */}
-							</React.Fragment>
-						);
-					})
-				) : (
-					<Typography variant="h6">No stalls found. Try a different search!</Typography>
-				)}
+				<Typography variant="h5" sx={{ ml: "3vw", color: "primary.dark", fontWeight: "600" }}>
+					{triggeredAPI ? "Search results" : "Trending stalls"}
+				</Typography>
+
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "flex-start",
+						flexWrap: "wrap",
+						mx: "auto"
+					}}
+				>
+					{currentStalls.length > 0 ? (
+						currentStalls.map((currentStalls, idKey) => {
+							console.log(currentStalls.img.url);
+							return (
+								<React.Fragment key={idKey}>
+									<IndividualCard
+										img={currentStalls.img.url}
+										id={currentStalls._id}
+										nameOfStall={currentStalls.stallName}
+										cuisine={currentStalls.cuisine}
+										location={currentStalls.location.centerName}
+									/>
+									{/* <Typography>Submitted by: {stall.author.name}</Typography> */}
+								</React.Fragment>
+							);
+						})
+					) : (
+						<Typography variant="h6">No stalls found. Try a different search!</Typography>
+					)}
+				</Box>
 			</Box>
 		</React.Fragment>
 	);
