@@ -112,8 +112,8 @@ const Home = () => {
 			});
 		apis
 			.getRecommendedStalls()
-			.then((data) => {
-				setCurrentStalls(data);
+			.then((res) => {
+				setCurrentStalls(res.data.stalls);
 				// console.log('RETURNING ', data);
 			})
 			.catch((err) => console.error(err));

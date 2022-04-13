@@ -41,7 +41,7 @@ const updateReview = async (body) => {
 
 const getRecommendedStalls = async () => {
 	const response = await axios.get(baseURL + "/home");
-	return response.data;
+	return response;
 };
 
 const postSignUp = async (body) => {
