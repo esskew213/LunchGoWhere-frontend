@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import useSetInputState from "../hooks/useSetInputState";
 import locations from "../hawkerCenters";
 import { FormControl, Box, TextField, Button, MenuItem, InputLabel, Select, Input, Typography } from "@mui/material";
+
 import AutocompleteLocation from "./AutocompleteLocation";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import apis from "../utils/apiCalls";
@@ -12,6 +13,7 @@ const NewStallForm = () => {
 	//// Using the useSetInputState custom hook
 	const [ stallName, setStallName, handleStallNameChange, resetStallName ] = useSetInputState("");
 	const [ cuisine, setCuisine, handleCuisineChange, resetCuisine ] = useSetInputState("");
+	const [ loading, setLoading ] = useState(false);
 	const [ image, setImage ] = useState("");
 
 	//// Need to set a special handler for location to get value from autocomplete field
@@ -90,6 +92,7 @@ const NewStallForm = () => {
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
+		setLoading(true);
 		let formData = new FormData();
 		formData.append("file", image.data);
 		formData.append("stallName", stallName);
@@ -99,6 +102,7 @@ const NewStallForm = () => {
 		apis
 			.postNewStall(formData)
 			.then((res) => {
+				setLoading(false);
 				resetStallName();
 				resetCuisine();
 				setLocation(0);
@@ -196,6 +200,7 @@ const NewStallForm = () => {
 							</Typography>
 						</Box>
 						<Button
+							disabled={loading}
 							fullWidth
 							endIcon={<ArrowForwardIosIcon />}
 							variant="contained"
