@@ -44,8 +44,9 @@ const Landing = () => {
 		apis
 			.checkAuthUser()
 			.then((res) => {
-				console.log(res);
-				navigate("/home");
+				if (res.status === 200) {
+					navigate("/home");
+				}
 			})
 			.catch((err) => {
 				console.log(err.response);
