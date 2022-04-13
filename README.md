@@ -65,10 +65,15 @@ We broke down the project by user story and task, as follows:
     - Write API to clear the relevant cookies from the browser
 - *Logged-out users should not be able to access any of the routes except the landing page.*
     - Protect all routes with a function that pings the backend to check whether a user is logged in (via verifying the JWT token)
+## Figma Wireframes
+![Login Page](https://user-images.githubusercontent.com/99468700/163157759-e2d8a80d-1072-462a-b33f-d57b0df4920b.png)
+![Home Page](https://user-images.githubusercontent.com/99468700/163157777-d0290527-431a-4bf1-b44a-7345323cdbb2.png)
+![Individual Result Page](https://user-images.githubusercontent.com/99468700/163157803-ba96c493-0bd3-49b7-b184-ef628d34cfef.png)
+![Submit Review Page with drop down](https://user-images.githubusercontent.com/99468700/163157847-d03de72c-91f0-41f6-ba92-2a5fbc73a15b.png)
+
 
 ## Challenges and Future Work
 - Working in a team and using Git effectively was a very good, albeit challenging, learning experience. In particular, we realised the importance of configuring our linters to the same settings! We also learnt how to deconflict code and read PRs.
 - There could definitely be further improvements to form and data validation. Given more time, we would have used JOI to ensure that data submitted in forms was of the correct type.
 - We would also add a sort button to let users sort search results by rating, price and wait time, and a "My Activity" page to let users see the stalls / reviews they have contributed at a glance.
 - Last but not least, we considered using the Google Maps autocomplete API to allow users to type in a location of their choice, and find stalls close by (as opposed to being constrained to searching by hawker centre). However, we did not implement this for the project as we did not want to pay to use the API. :P
-- 
