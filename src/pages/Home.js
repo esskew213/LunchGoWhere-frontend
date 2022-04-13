@@ -101,15 +101,15 @@ const Home = () => {
 		[ coords ]
 	);
 	useEffect(() => {
-		apis
-			.checkAuthUser()
-			.then((res) => {
-				console.log(res);
-			})
-			.catch((err) => {
-				console.log(err.response);
-				navigate("/");
-			});
+		// apis
+		// 	.checkAuthUser()
+		// 	.then((res) => {
+		// 		console.log(res);
+		// 	})
+		// 	.catch((err) => {
+		// 		console.log(err.response);
+		// 		navigate("/");
+		// 	});
 		apis
 			.getRecommendedStalls()
 			.then((res) => {
