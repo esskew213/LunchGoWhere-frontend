@@ -28,8 +28,13 @@ const ResponsiveAppBar = () => {
 		setAnchorElNav(event.currentTarget);
 	};
 	const handleLogout = async () => {
-		const logout = await apis.logoutUser();
-		navigate("/");
+		await apis
+			.logoutUser()
+			.then((res) => {
+				console.log(res);
+				navigate("/");
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const handleCloseNavMenu = () => {
