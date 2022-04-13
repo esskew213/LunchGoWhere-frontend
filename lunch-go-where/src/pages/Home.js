@@ -15,8 +15,8 @@ import SearchIcon from "@mui/icons-material/Search";
 const Home = () => {
 	const [ sortedHawkers, setSortedHawkers ] = useState(locations);
 	const [ location, setLocation ] = useState("");
-	const [ priceRange, setPriceRange ] = useState(5);
-	const [ waitTime, setWaitTime ] = useState(5);
+	const [ priceRange, setPriceRange ] = useState(0);
+	const [ waitTime, setWaitTime ] = useState(0);
 	const [ triggeredAPI, setTriggeredAPI ] = useState(false);
 	const [ currentStalls, setCurrentStalls ] = useState([]);
 	const navigate = useNavigate();
