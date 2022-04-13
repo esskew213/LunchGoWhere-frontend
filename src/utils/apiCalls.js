@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseURL = "https://sei-35-lunchgowhere.herokuapp.com";
+const baseURL = "https://sei-35-lunchgowhere.herokuapp.com/api";
 
 const login = async (body) => {
 	const response = await axios.post(baseURL + "/login", body, {
