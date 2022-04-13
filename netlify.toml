@@ -1,3 +1,5 @@
 [[redirects]]
 from = "/*"
-to="https://sei-35-lunchgowhere.herokuapp.com/:splat"
+to = "https://sei-35-lunchgowhere.herokuapp.com/:splat"
+status = 200
+force = true
