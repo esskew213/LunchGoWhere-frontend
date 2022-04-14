@@ -1,4 +1,4 @@
-# LunchGoWhere: Crowdsourced reviews of the best hawker food around
+# [LunchGoWhere](https://lunchgowhere.netlify.app): Crowdsourced reviews of the best hawker food around
 
 ## User Problem
 _“Where should we go today?”_ That’s what we ask whenever lunchtime rolls around. Google Maps has plenty of eateries listed, but:
